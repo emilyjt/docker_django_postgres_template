@@ -1,0 +1,7 @@
+{% extends "_base.html" %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <p>The random number is: {{ number }}</p>
+    <a href="{% url 'accounts:login' %}">This should link to login</a>
+{% endblock content %}

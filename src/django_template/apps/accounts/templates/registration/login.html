@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    <div class=""><a href="{% url 'main:home' %}">This should link home</a></div>
+{% endblock content %}
