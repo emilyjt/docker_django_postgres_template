@@ -32,6 +32,8 @@ You should be able to now start the django development server and see a very bas
 
 ```bash
 (venv) cd .\src\django_template\
+(venv) python manage.py makemigrations
+(venv) python manage.py migrate
 (venv) python manage.py runserver
 ```
 
@@ -43,7 +45,7 @@ See also the list of [contributors](https://github.com/emilyjt/django-template/c
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
