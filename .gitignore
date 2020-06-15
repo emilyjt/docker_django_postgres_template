@@ -141,5 +141,5 @@ cython_debug/
 .vscode
 
 # Custom
-commits-info.txt
+# commits-info.txt
 src/django_template/apps/accounts/migrations/0001_initial.py
