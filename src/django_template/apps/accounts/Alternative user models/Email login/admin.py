@@ -1,10 +1,3 @@
-"""
-The code included here, is an example admin page to accompany the included
-custom user model.
-
-This code uses the django default as a base model.
-"""
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import gettext_lazy as _

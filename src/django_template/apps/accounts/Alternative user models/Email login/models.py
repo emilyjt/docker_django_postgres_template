@@ -1,11 +1,3 @@
-"""
-The code included here, is an example custom user model that will change the default
-username based login to be an email based login. The new user model still requires
-a username, but this functionality could be easily overridden.
-
-This code uses the django default as a base model.
-"""
-
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
