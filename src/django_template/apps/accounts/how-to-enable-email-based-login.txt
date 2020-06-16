@@ -1,3 +1,3 @@
 There is a custom user model included that will provide the functionality to switch from a username based login
-to an email address based login. You will need to uncomment and replace the correct sections in models.py and
-admin.py.
+to an email address based login. There are two files included, admin_email.py and models_email.py. Delete or rename the
+origional admin.py and model.py and then rename admin_email.py and models_email.py to admin.py and model.py respectively.
