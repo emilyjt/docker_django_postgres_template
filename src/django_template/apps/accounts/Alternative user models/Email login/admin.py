@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import User
 
 
-# @admin.register(User) <-- this line will need to uncommented
+# @admin.register(User)  # <-- this line will need to uncommented
 class UserAdmin(DjangoUserAdmin):
     list_display = ("email", "username", "first_name", "last_name", "is_staff")
 
