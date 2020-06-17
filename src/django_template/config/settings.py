@@ -106,7 +106,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "accounts.User"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "accounts:redirect"
+LOGIN_REDIRECT_URL = "main:home"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-url
 LOGIN_URL = "accounts:login"
 
