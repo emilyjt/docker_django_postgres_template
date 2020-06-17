@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "django-template"
+version = "0.1.0"
+description = "A fairly basic django template that includes a non-modified custom user model and an opinionated good folder structure."
+authors = ["Emily <12156026+emilyjt@users.noreply.github.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^3.0.7"
+setuptools = "^47.3.1"
+wheel = "^0.34.2"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+flake8 = "^3.8.3"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
