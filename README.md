@@ -1,6 +1,6 @@
 # django template
 
-[![GitHub license](https://img.shields.io/github/license/emilyjt/django-template)](https://github.com/emilyjt/django-template/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/emilyjt/django_template)](https://github.com/emilyjt/django_template/blob/master/LICENSE)
 
 A fairly basic django template that includes a non-modified [custom user model](https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project) and an opinionated [good folder structure](https://hynek.me/articles/testing-packaging/).
 
@@ -11,8 +11,8 @@ These instructions will get you a copy of the project up and running on your loc
 ### On a Windows OS
 
 ```bash
-git clone https://github.com/emilyjt/django-template.git
-cd django-template
+git clone https://github.com/emilyjt/django_template.git
+cd django_template
 ```
 
 Create and activate a virtual environment:
@@ -41,7 +41,7 @@ You should be able to now start the django development server and see a very bas
 
 * [**emilyjt**](https://github.com/emilyjt)
 
-See also the list of [contributors](https://github.com/emilyjt/django-template/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/emilyjt/django_template/contributors) who participated in this project.
 
 ## License
 

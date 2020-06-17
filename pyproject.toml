@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "django-template"
+name = "django_template"
 version = "0.1.0"
 description = "A fairly basic django template that includes a non-modified custom user model and an opinionated good folder structure."
 authors = ["Emily <12156026+emilyjt@users.noreply.github.com>"]

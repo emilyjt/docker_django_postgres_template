@@ -162,7 +162,7 @@ python-versions = "*"
 version = "1.4.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A built-package format for Python"
 name = "wheel"
 optional = false
@@ -173,7 +173,7 @@ version = "0.34.2"
 test = ["pytest (>=3.0.0)", "pytest-cov"]
 
 [metadata]
-content-hash = "7c4474927a5a8fc83778dd175ef11a0398ec571a42370b3c44804eddd0d98dd8"
+content-hash = "365fcfeae55324bf277ff264ba77099a21643cebdbb5a54567603f8b9d92995b"
 python-versions = "^3.8"
 
 [metadata.files]

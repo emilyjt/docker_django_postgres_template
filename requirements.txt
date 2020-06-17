@@ -4,7 +4,7 @@ attrs==19.3.0
 black==19.10b0
 click==7.1.2
 Django==3.0.7
--e git+https://github.com/emilyjt/django-template.git@49bd7f2e73c21fdab2d0883ecdbaa1a6f1fd0e22#egg=django_template
+-e git+https://github.com/emilyjt/django_template.git@03bf41b54e0ffe5610e9a77f7c2c9fb8c4658660#egg=django_template
 flake8==3.8.3
 mccabe==0.6.1
 pathspec==0.8.0
