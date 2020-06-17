@@ -47,7 +47,9 @@ USE_TZ = True
 # LOCALE_PATHS = os.path.join(BASE_DIR, "locale")
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#secret-key
-SECRET_KEY = "^9d63l(*x9k4gwg@*bvxt^1d97&xo(bw!z8ox#tn^zu-$yuf!n"
+SECRET_KEY = os.getenv(
+    "SECRET_KEY", b"d\x07\xdf3\xfb\x90C\xeeW5\xe9\xc0\x86\x04Bi;\x1b\xfe`\x88\x1aL\xc4"
+)
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
@@ -178,7 +180,7 @@ TEMPLATES = [
 ADMIN_URL = "admin/"
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#admins
-ADMINS = [("Emily", "***REMOVED***")]
+ADMINS = [("Emily", "12156026+emilyjt@users.noreply.github.com")]
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#managers
 MANAGERS = ADMINS
