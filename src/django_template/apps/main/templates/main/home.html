@@ -3,5 +3,8 @@
 
 {% block content %}
     <p>The random number is: {{ number }}</p>
+    {% if request.user.is_authenticated %}
+    <p>Hello {{ request.user.username }}</p>
+    {% endif %}
     <a href="{% url 'accounts:login' %}">This should link to login</a>
 {% endblock content %}
