@@ -101,7 +101,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # https://docs.djangoproject.com/en/3.0/ref/settings/#authentication-backends
 # AUTHENTICATION_BACKENDS = [
 #     "django.contrib.auth.backends.ModelBackend",
-#     "allauth.account.auth_backends.AuthenticationBackend",
 # ]
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "accounts.User"
@@ -144,9 +143,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 
 # https://docs.djangoproject.com/en/3.0/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 
 # Templates
 # ------------------------------------------------------------------------------
@@ -176,9 +175,6 @@ TEMPLATES = [
 
 # Admin
 # ------------------------------------------------------------------------------
-# Django Admin URL.
-ADMIN_URL = "admin/"
-
 # https://docs.djangoproject.com/en/3.0/ref/settings/#admins
 ADMINS = [("Emily", "12156026+emilyjt@users.noreply.github.com")]
 
