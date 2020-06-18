@@ -1,9 +1,0 @@
-There are two alternative user models provided:
-
-One will allow a case insensitive username to be used whilst also maintaining the casing the user
-origionally types in a field called "display_name".
-
-The other will require an email to login, the username field has been kept as a required field.
-This can be changed by removing any wording related to username, except for its initial declaration
-where you should change "username = None", as the model provided uses django's AbstractUser model
-rather than AbstractBaseUser.
