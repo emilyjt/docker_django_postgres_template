@@ -2,7 +2,7 @@ from django.urls import path, include
 
 # https://docs.djangoproject.com/en/dev/topics/auth/default/#module-django.contrib.auth.views
 
-app_name = "accounts"
+app_name = "account"
 urlpatterns = [
     path("", include("django.contrib.auth.urls")),
 ]

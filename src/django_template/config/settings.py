@@ -86,7 +86,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = []
 
-LOCAL_APPS = ["apps.main", "apps.accounts"]
+LOCAL_APPS = ["apps.main", "apps.account"]
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -103,11 +103,11 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 #     "django.contrib.auth.backends.ModelBackend",
 # ]
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-user-model
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "account.User"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "main:home"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-url
-LOGIN_URL = "accounts:login"
+LOGIN_URL = "account:login"
 
 # Passwords
 # ------------------------------------------------------------------------------
