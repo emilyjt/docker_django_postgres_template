@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView
 
 from .forms import MyUserCreationForm
 
+
 # Create your views here.
 class RegisterView(CreateView):
     model = get_user_model()
