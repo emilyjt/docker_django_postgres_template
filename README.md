@@ -34,6 +34,7 @@ You should be able to now start the django development server and see a very bas
 (venv) cd .\src\django_template\
 (venv) python manage.py makemigrations
 (venv) python manage.py migrate
+(venv) python manage.py collectstatic
 (venv) python manage.py runserver
 ```
 
