@@ -139,6 +139,3 @@ cython_debug/
 
 # VSCode
 .vscode
-
-# Custom
-poetry.lock
