@@ -1,7 +1,15 @@
 {% extends "_base.html" %}
+{% load static %}
+
 {% block title %}Home{% endblock title %}
 
+{% block extra_stylesheets %}
+{% comment %} Can put extra css styles into a tempalate like so: <link rel="stylesheet" href="{% static 'main/css/example.min.css' %}"> {% endcomment %}
+{% endblock extra_stylesheets %}
+
 {% block content %}
+    {% comment %} Can use includes, such as: {% include "includes/_example_navbar.html" %} {% endcomment %}
+
     <p>The random number is: {{ number }}</p>
     {% if request.user.is_authenticated %}
     <p>Hello {{ request.user.username }}</p>

@@ -8,10 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{% block title %}{% endblock title %}</title>
 
-    <link rel="stylesheet" href="{% static 'css/main.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'main/css/main.min.css' %}" type="text/css" />
+    {% block extra_stylesheets %}
+    {% endblock extra_stylesheets %}
 </head>
 
-<body>
+<body class="{% block body_classes %}{% endblock body_classes %}">
     {% block content %}
     {% endblock content %}
 </body>
