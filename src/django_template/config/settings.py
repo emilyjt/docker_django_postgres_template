@@ -81,12 +81,18 @@ DJANGO_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    # https://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
+    "whitenoise.runserver_nostatic",
+    #
     "django.contrib.staticfiles",
 ]
 
 THIRD_PARTY_APPS = []
 
-LOCAL_APPS = ["apps.main", "apps.account"]
+LOCAL_APPS = [
+    "apps.main",
+    "apps.account",
+]
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -108,6 +114,8 @@ AUTH_USER_MODEL = "account.User"
 LOGIN_REDIRECT_URL = "main:home"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-url
 LOGIN_URL = "account:login"
+# https://docs.djangoproject.com/en/3.0/ref/settings/#logout-redirect-url
+LOGOUT_REDIRECT_URL = "main:home"
 
 # Passwords
 # ------------------------------------------------------------------------------
@@ -116,7 +124,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {"min_length": 8,},
+    },
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
@@ -126,6 +137,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # https://whitenoise.evans.io/en/stable/django.html#enable-whitenoise
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    #
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -146,6 +160,9 @@ STATIC_URL = "/static/"
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static"),
 # ]
+
+# https://whitenoise.evans.io/en/stable/django.html#add-compression-and-caching-support
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Templates
 # ------------------------------------------------------------------------------
