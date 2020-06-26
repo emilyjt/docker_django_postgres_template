@@ -1,0 +1,9 @@
+Poetry export non-dev requirements
+----------------------------------
+
+poetry export -f requirements.txt -o requirements.txt --without-hashes
+
+Heroku
+------
+
+heroku run python ./src/django_template/manage.py <command>
