@@ -14,5 +14,7 @@
     {% if request.user.is_authenticated %}
     <p>Hello {{ request.user.username }}</p>
     {% endif %}
-    <a href="{% url 'account:login' %}">This should link to login</a>
+    <div class=""><a href="{% url 'account:register' %}">Sign up</a></div>
+    <div class=""><a href="{% url 'account:login' %}">Login</a></div>
+    <div class=""><a href="{% url 'admin:index' %}">Admin</a></div>
 {% endblock content %}
