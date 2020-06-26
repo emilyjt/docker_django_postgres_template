@@ -1,12 +1,11 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin as UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User
 
-
-# @admin.register(User)  # <-- this line will need to uncommented
-class UserAdmin(DjangoUserAdmin):
+# @admin.register(get_user_model())  # <-- this line will need to uncommented
+class MyUserAdmin(UserAdmin):
     list_display = ("username", "email", "first_name", "last_name", "is_staff")
 
     fieldsets = (
@@ -22,6 +21,7 @@ class UserAdmin(DjangoUserAdmin):
                     "groups",
                     "user_permissions",
                 ),
+                # "classes": ("collapse",),  # uncomment and view a user account in admin
             },
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import UserManager as DjangoUserManager
+from django.contrib.auth.models import UserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 # https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 
 
-class UserManager(DjangoUserManager):
+class MyUserManager(UserManager):
     def _create_user(self, email, username, password, **extra_fields):
         """
         Create and save a user with the given email, username, and password.
@@ -67,4 +67,4 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
-    objects = UserManager()
+    objects = MyUserManager()
