@@ -1,36 +1,31 @@
 from django.views.generic.base import TemplateView
 
+# We need random to demonstrate passing values to a webpage
 import random
 
 
 # https://docs.djangoproject.com/en/3.0/ref/class-based-views/
 class HomePageView(TemplateView):
+    """This view will be our index located at "/"
+
+    The template is located at src/django_template/apps/main/templates/main/home.html
+    The important part is 'main/home.html'
+    See here: https://docs.djangoproject.com/en/3.0/ref/settings/#templates
+    for the important line: 'Here’s a setup that tells the Django template engine to
+    load templates from the templates subdirectory inside each installed application'
+    This mode is enabled in the settings.
+    """
+
     template_name = "main/home.html"
 
     def get_context_data(self, **kwargs):
+        """This function builds the data that will be passed to the template
+
+        https://docs.djangoproject.com/en/3.0/ref/templates/api/#rendering-a-context
+
+        For this example, all that is happening is a random number between 1 and 100
+        is being generated.
+        """
         context = super().get_context_data(**kwargs)
         context["number"] = random.randrange(1, 100)
         return context
-
-
-# Taken from https://docs.djangoproject.com/en/3.0/topics/class-based-views/mixins/#using-singleobjectmixin-with-view
-
-# from django.http import HttpResponseForbidden, HttpResponseRedirect
-# from django.urls import reverse
-# from django.views import View
-# from django.views.generic.detail import SingleObjectMixin
-# from books.models import Author
-
-# class RecordInterest(SingleObjectMixin, View):
-#     """Records the current user's interest in an author."""
-#     model = Author
-
-#     def post(self, request, *args, **kwargs):
-#         if not request.user.is_authenticated:
-#             return HttpResponseForbidden()
-
-#         # Look up the author we're interested in.
-#         self.object = self.get_object()
-#         # Actually record interest somehow here!
-
-#         return HttpResponseRedirect(reverse('author-detail', kwargs={'pk': self.object.pk}))
