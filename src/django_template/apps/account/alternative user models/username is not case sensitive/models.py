@@ -11,30 +11,23 @@ class MyUserManager(UserManager):
 
 
 class User(AbstractUser):
-    username_validator = UnicodeUsernameValidator()
-
-    username = models.CharField(
-        _("username"),
-        max_length=150,
-        unique=True,
-        help_text=_(
-            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-        ),
-        validators=[username_validator],
-        error_messages={"unique": _("A user with that username already exists."),},
-    )
-
+    # This will keep track of the casing the user originally types.
     display_name = models.CharField(_("display name"), max_length=150, blank=True)
 
+    # This is used to provide a case insensitive username.
     objects = MyUserManager()
 
+    # Instance variable to track if username is being updated, to preserve casing
     __original_username = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__original_username = self.username
+        self.__original_username = self.username  # remember the current username
 
     def save(self, *args, **kwargs):
+        # If the username has changed, preserve the casing in self.display_name
+        # and then perform a lower() on the username field to aid in ensuring
+        # two usernames of different casing cannot be created.
         if self.username != self.__original_username:
             self.display_name = self.username
             self.username = str.lower(self.username)

@@ -1,0 +1,8 @@
+html,
+body {
+    background-color: hsl(0, 0%, 95%);
+}
+
+p {
+    font-size: 1.2rem;
+}

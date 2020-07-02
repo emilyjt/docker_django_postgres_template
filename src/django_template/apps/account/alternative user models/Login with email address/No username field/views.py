@@ -1,18 +1,20 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import MyUserCreationForm
 
+User = get_user_model()
 
-# Create your views here.
+
 class RegisterView(CreateView):
-    model = get_user_model()
+    model = User
     form_class = MyUserCreationForm
-    template_name = "registration/register.html"
+    template_name = "account/register.html"
 
     def get_success_url(self):
         # Example messages implementation. You will need to add this to your html templates to be
@@ -24,13 +26,19 @@ class RegisterView(CreateView):
         return reverse_lazy("account:login")
 
     def get(self, request, *args, **kwargs):
-        # If the user is logged in, move them on, as we don't want users with an account registering again
+        # Do not allow a logged in user to register a new account.
+        # Redirect them to wherever freshly logged in users go to.
         if request.user.is_authenticated:
             return redirect(settings.LOGIN_REDIRECT_URL)
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        # If the user is logged in, move them on, as we don't want users with an account registering again
+        # Do not allow a logged in user to register a new account.
+        # Redirect them to wherever freshly logged in users go to.
         if request.user.is_authenticated:
             return redirect(settings.LOGIN_REDIRECT_URL)
         return super().post(request, *args, **kwargs)
+
+
+class MyLoginView(LoginView):
+    template_name = "account/login.html"

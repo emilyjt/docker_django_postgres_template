@@ -49,7 +49,9 @@ class User(AbstractUser):
     email = models.EmailField(
         _("email address"),
         unique=True,
-        help_text=_("Required. Must be a valid email address."),
+        help_text=_(
+            "Required. Must be a valid email address. This is what you will use to log in."
+        ),
         error_messages={"unique": _("A user with that email address already exists."),},
     )
 

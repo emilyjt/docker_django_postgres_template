@@ -12,7 +12,10 @@
 
     <p>The random number is: {{ number }}</p>
     {% if request.user.is_authenticated %}
-    <p>Hello {{ request.user.username }}</p>
+    {% comment %} This will work for a user model with a username, and if you opt for the email registration
+                  custom model, then this will display their email address instead.
+                  In practice, you should only need one of these variables. {% endcomment %}
+    <p>Hello {% firstof request.user.username request.user.email %}</p>
     {% endif %}
     <div class=""><a href="{% url 'account:register' %}">Sign up</a></div>
     <div class=""><a href="{% url 'account:login' %}">Login</a></div>
