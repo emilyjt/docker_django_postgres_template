@@ -1,11 +1,12 @@
 from django.urls import include, path
 
-from .views import RegisterView
+from .views import RegisterView, MyLoginView
 
 # https://docs.djangoproject.com/en/dev/topics/auth/default/#module-django.contrib.auth.views
 
 app_name = "account"
 urlpatterns = [
+    path("login/", MyLoginView.as_view(), name="login"),
     path("register/", RegisterView.as_view(), name="register"),
     path("", include("django.contrib.auth.urls")),
 ]

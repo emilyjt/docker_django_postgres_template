@@ -2,16 +2,20 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 
-# Create your views here.
 class RegisterView(CreateView):
+    """This view allows a user to register an account
+    https://docs.djangoproject.com/en/3.0/ref/class-based-views/generic-editing/#createview
+    """
+
     model = get_user_model()
     form_class = UserCreationForm
-    template_name = "registration/register.html"
+    template_name = "account/register.html"
 
     def get_success_url(self):
         # Example messages implementation. You will need to add this to your html templates to be
@@ -33,3 +37,7 @@ class RegisterView(CreateView):
         if request.user.is_authenticated:
             return redirect(settings.LOGIN_REDIRECT_URL)
         return super().post(request, *args, **kwargs)
+
+
+class MyLoginView(LoginView):
+    template_name = "account/login.html"
