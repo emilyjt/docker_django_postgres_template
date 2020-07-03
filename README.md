@@ -32,7 +32,7 @@ python -m venv .venv
 and install the project requirements:
 
 ```bash
-(venv) pip install -r requirements.txt
+(venv) pip install -r requirements-dev.txt
 ```
 
 You should be able to now start the django development server and see a very basic home page with a random number and a link to log in.
@@ -41,7 +41,6 @@ You should be able to now start the django development server and see a very bas
 (venv) cd .\src\django_template\
 (venv) python manage.py makemigrations
 (venv) python manage.py migrate
-(venv) python manage.py collectstatic
 (venv) python manage.py runserver
 ```
 
