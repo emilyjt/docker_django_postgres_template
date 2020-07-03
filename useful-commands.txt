@@ -3,6 +3,12 @@ Poetry export non-dev requirements
 
 poetry export -f requirements.txt -o requirements.txt --without-hashes
 
+
+Poetry export dev requirements
+----------------------------------
+
+poetry export -f requirements.txt -o requirements-dev.txt --without-hashes --dev
+
 Heroku
 ------
 
