@@ -57,4 +57,5 @@ class MyLoginView(LoginView):
     This is for clarity. The app is named account, and so the templates should also
     be located in account.
     """
+
     template_name = "account/login.html"

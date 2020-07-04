@@ -2,14 +2,11 @@
 {% block title %}Sign up{% endblock title %}
 
 {% block content %}
-    <h2>Sign up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="next" value="{{ next }}" />
-        <button type="submit">Sign up</button>
-    </form>
-    <div class=""><a href="{% url 'main:home' %}">Home</a></div>
-    <div class=""><a href="{% url 'account:login' %}">Login</a></div>
-    <div class=""><a href="{% url 'admin:index' %}">Admin</a></div>
+<h2>Sign up</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <button type="submit">Sign up</button>
+</form>
 {% endblock content %}

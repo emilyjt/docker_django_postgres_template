@@ -1,8 +1,195 @@
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,
-body {
-    background-color: hsl(0, 0%, 95%);
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0
 }
 
-p {
-    font-size: 1.2rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal
+}
+
+ul {
+    list-style: none
+}
+
+button,
+input,
+select,
+textarea {
+    margin: 0
+}
+
+html {
+    box-sizing: border-box
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit
+}
+
+img,
+video {
+    height: auto;
+    max-width: 100%
+}
+
+iframe {
+    border: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+td,
+th {
+    padding: 0
+}
+
+td:not([align]),
+th:not([align]) {
+    text-align: left
+}
+
+/* Custom styles */
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+nav,
+.navbar-end,
+.navbar-menu,
+.navbar-start {
+    align-items: stretch;
+    display: flex;
+}
+
+.navbar-end {
+    line-height: 1.5;
+    padding: .5rem .75rem;
+    position: relative;
+}
+
+nav {
+    background-color: #b86bff;
+    color: #fff;
+    min-height: 3.25rem;
+}
+
+.navbar-menu {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.navbar-start {
+    justify-content: flex-start;
+    margin-right: auto;
+}
+
+.navbar-end {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+nav a.is-active,
+nav a:focus,
+nav a:hover {
+    background-color: #ab52ff;
+    color: #fff;
+}
+
+nav a {
+    color: #fff;
+    align-items: center;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    line-height: 1.5;
+    padding: .5rem .75rem;
+    position: relative;
+
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.button {
+    border-color: #dbdbdb;
+    border-width: 1px;
+    cursor: pointer;
+    justify-content: center;
+    padding: calc(.5em - 1px) 1em;
+    text-align: center;
+    white-space: nowrap;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: none;
+    display: inline-flex;
+    font-size: 1rem;
+    height: 2.5em;
+    justify-content: flex-start;
+    line-height: 1.5;
+    padding: calc(.5em - 1px) calc(.75em - 1px);
+    position: relative;
+    vertical-align: top;
+
+    background-color: #fff;
+    border-color: transparent;
+    color: #0a0a0a;
+
+    margin-bottom: .5rem;
+}
+
+.button:hover {
+    background-color: #f9f9f9;
+    border-color: transparent;
+    color: #0a0a0a;
+}
+
+.navbar-end .button:not(:last-child) {
+    margin-right: .5rem;
+}
+
+.navbar-end:last-child {
+    margin-bottom: -.5rem;
 }
