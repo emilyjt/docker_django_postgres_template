@@ -108,14 +108,15 @@ class MyPasswordChangeDoneView(PasswordChangeDoneView):
 class MyPasswordResetView(PasswordResetView):
     """
     Simple override to change the template location from `registration/password_reset_email.html`
-    to `account/password_reset_email.html`, and to change the success_url to
+    to `account/password_reset_email/body.html`, and to change the success_url to
     the namespaced variant.
     This is for clarity. The app is named account, and so the templates should also
     be located in account.
     """
 
-    email_template_name = "account/password_reset_email.html"
-    subject_template_name = "account/password_reset_subject.txt"
+    subject_template_name = "account/password_reset_email/subject.txt"
+    email_template_name = "account/password_reset_email/body.html"
+    html_email_template_name = None
     success_url = reverse_lazy("account:password_reset_done")
     template_name = "account/password_reset_form.html"
 
@@ -140,7 +141,7 @@ class MyPasswordResetConfirmView(PasswordResetConfirmView):
     be located in account.
     """
 
-    success_url = reverse_lazy("account")
+    success_url = reverse_lazy("account:password_reset_complete")
     template_name = "account/password_reset_confirm.html"
 
 
