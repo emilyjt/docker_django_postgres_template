@@ -6,6 +6,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="hidden" name="next" value="{{ next }}" />
         <button type="submit">Sign up</button>
     </form>
     <div class=""><a href="{% url 'main:home' %}">Home</a></div>
