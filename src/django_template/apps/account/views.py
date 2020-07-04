@@ -2,7 +2,16 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordChangeDoneView,
+    PasswordChangeView,
+    PasswordResetCompleteView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetView,
+)
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
@@ -59,3 +68,88 @@ class MyLoginView(LoginView):
     """
 
     template_name = "account/login.html"
+
+
+class MyLogoutView(LogoutView):
+    """
+    Simple override to change the template location from `registration/logged_out.html`
+    to `account/logged_out.html`.
+    This is for clarity. The app is named account, and so the templates should also
+    be located in account.
+    """
+
+    template_name = "account/logged_out.html"
+
+
+class MyPasswordChangeView(PasswordChangeView):
+    """
+    Simple override to change the template location from `registration/password_change_form.html`
+    to `account/password_change_form.html`, and to change the success_url to
+    the namespaced variant.
+    This is for clarity. The app is named account, and so the templates should also
+    be located in account.
+    """
+
+    template_name = "account/password_change_form.html"
+    success_url = reverse_lazy("account:password_change_done")
+
+
+class MyPasswordChangeDoneView(PasswordChangeDoneView):
+    """
+    Simple override to change the template location from `registration/password_change_done.html`
+    to `account/password_change_done.html`.
+    This is for clarity. The app is named account, and so the templates should also
+    be located in account.
+    """
+
+    template_name = "account/password_change_done.html"
+
+
+class MyPasswordResetView(PasswordResetView):
+    """
+    Simple override to change the template location from `registration/password_reset_email.html`
+    to `account/password_reset_email.html`, and to change the success_url to
+    the namespaced variant.
+    This is for clarity. The app is named account, and so the templates should also
+    be located in account.
+    """
+
+    email_template_name = "account/password_reset_email.html"
+    subject_template_name = "account/password_reset_subject.txt"
+    success_url = reverse_lazy("account:password_reset_done")
+    template_name = "account/password_reset_form.html"
+
+
+class MyPasswordResetDoneView(PasswordResetDoneView):
+    """
+    Simple override to change the template location from `registration/password_reset_done.html`
+    to `account/password_reset_done.html`.
+    This is for clarity. The app is named account, and so the templates should also
+    be located in account.
+    """
+
+    template_name = "account/password_reset_done.html"
+
+
+class MyPasswordResetConfirmView(PasswordResetConfirmView):
+    """
+    Simple override to change the template location from `registration/password_reset_confirm.html`
+    to `account/password_reset_confirm.html`, and to change the success_url to
+    the namespaced variant.
+    This is for clarity. The app is named account, and so the templates should also
+    be located in account.
+    """
+
+    success_url = reverse_lazy("account")
+    template_name = "account/password_reset_confirm.html"
+
+
+class MyPasswordResetCompleteView(PasswordResetCompleteView):
+    """
+    Simple override to change the template location from `registration/password_reset_complete.html`
+    to `account/password_reset_complete.html`.
+    This is for clarity. The app is named account, and so the templates should also
+    be located in account.
+    """
+
+    template_name = "account/password_reset_complete.html"
