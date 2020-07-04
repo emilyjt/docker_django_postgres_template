@@ -1,22 +1,28 @@
+from django.contrib.auth import views
 from django.urls import include, path
 
-from .views import RegisterView, MyLoginView
-
-# https://docs.djangoproject.com/en/dev/topics/auth/default/#module-django.contrib.auth.views
+from .views import MyLoginView, MyRegisterView
 
 app_name = "account"
 urlpatterns = [
     path("login/", MyLoginView.as_view(), name="login"),
-    path("register/", RegisterView.as_view(), name="register"),
-    path("", include("django.contrib.auth.urls")),
-]
+    path("register/", MyRegisterView.as_view(), name="register"),
 
-# This is a list of the included urls
-# account/login/ [name='login']
-# account/logout/ [name='logout']
-# account/password_change/ [name='password_change']
-# account/password_change/done/ [name='password_change_done']
-# account/password_reset/ [name='password_reset']
-# account/password_reset/done/ [name='password_reset_done']
-# account/reset/<uidb64>/<token>/ [name='password_reset_confirm']
-# account/reset/done/ [name='password_reset_complete']
+    # These are copied and pasted from `django.contrib.auth.urls`
+    # alternative implementation could have been:
+    # `path("", include("django.contrib.auth.urls")),`
+    # see the official docs for me, here:
+    # https://docs.djangoproject.com/en/dev/topics/auth/default/#module-django.contrib.auth.views
+    # path('login/', views.LoginView.as_view(), name='login'),
+    # To find out why this default implementation of `login/` has
+    # been commented out, see `views.py`
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+
+    path('password_change/', views.PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+
+    path('password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+]
