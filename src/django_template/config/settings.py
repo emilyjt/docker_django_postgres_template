@@ -115,7 +115,7 @@ LOGIN_REDIRECT_URL = "main:home"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-url
 LOGIN_URL = "account:login"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#logout-redirect-url
-LOGOUT_REDIRECT_URL = "main:home"
+# LOGOUT_REDIRECT_URL = "main:home"
 
 # Passwords
 # ------------------------------------------------------------------------------

@@ -11,6 +11,8 @@
 {% block content %}
 {% comment %} Can use includes, such as: {% include "includes/_example_navbar.html" %} {% endcomment %}
 
+<h1>Home page</h1>
+
 <p>The random number is: {{ number }}</p>
 {% if request.user.is_authenticated %}
 {% comment %} This will work for a user model with a username, and if you opt for the email registration
