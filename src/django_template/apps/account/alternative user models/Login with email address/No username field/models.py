@@ -4,8 +4,6 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
-
 
 class MyUserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):

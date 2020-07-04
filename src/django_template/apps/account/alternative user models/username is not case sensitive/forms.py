@@ -2,13 +2,14 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 
-# Refrence to the user model for cleaner code in the form.
+# Refrence to the user model for cleaner code
 User = get_user_model()
 
 
 class MyUserCreationForm(UserCreationForm):
     def clean_username(self):
-        """Checks if the username exists in the database
+        """
+        Checks if the username exists in the database
 
         All usernames are stored in the database in lower case, and so
         the username must be lower()'d before it is checked.

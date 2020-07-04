@@ -25,9 +25,11 @@ class User(AbstractUser):
         self.__original_username = self.username  # remember the current username
 
     def save(self, *args, **kwargs):
-        # If the username has changed, preserve the casing in self.display_name
-        # and then perform a lower() on the username field to aid in ensuring
-        # two usernames of different casing cannot be created.
+        """
+        If the username has changed, preserve the casing in self.display_name
+        and then perform a lower() on the username field to aid in ensuring
+        two usernames of different casing cannot be created.
+        """
         if self.username != self.__original_username:
             self.display_name = self.username
             self.username = str.lower(self.username)

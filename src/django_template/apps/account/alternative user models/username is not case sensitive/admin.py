@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .forms import MyUserCreationForm
 
+# Refrence to the user model for cleaner code
 User = get_user_model()
 
 
@@ -27,7 +28,6 @@ class MyUserAdmin(UserAdmin):
                     "groups",
                     "user_permissions",
                 ),
-                # "classes": ("collapse",),  # optionally uncomment and view a user account in admin
             },
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
