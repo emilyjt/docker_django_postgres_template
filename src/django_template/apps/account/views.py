@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView
 User = get_user_model()
 
 
-class NyRegisterView(CreateView):
+class MyRegisterView(CreateView):
     """
     This view allows a user to register an account.
     https://docs.djangoproject.com/en/3.0/ref/class-based-views/generic-editing/#createview
