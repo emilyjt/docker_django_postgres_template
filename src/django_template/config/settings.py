@@ -17,6 +17,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # General
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/ref/settings/#debug
@@ -54,6 +55,7 @@ SECRET_KEY = os.getenv(
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
+
 # Database
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -64,6 +66,7 @@ DATABASES = {
     }
 }
 
+
 # Urls
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/ref/settings/#root-urlconf
@@ -72,9 +75,9 @@ ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
 
+
 # Apps
 # ------------------------------------------------------------------------------
-
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -97,6 +100,7 @@ LOCAL_APPS = [
 # https://docs.djangoproject.com/en/3.0/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+
 # Migrations
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/ref/settings/#migration-modules
@@ -117,6 +121,15 @@ LOGIN_URL = "account:login"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#logout-redirect-url
 # LOGOUT_REDIRECT_URL = "main:home"
 
+
+# Email
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/3.0/topics/email/#module-django.core.mail
+
+# https://docs.djangoproject.com/en/3.0/topics/email/#console-backend
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
 # Passwords
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -131,6 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
+
 
 # Middleware
 # ------------------------------------------------------------------------------
@@ -148,6 +162,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 # Static
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/ref/settings/#static-root
@@ -163,6 +178,7 @@ STATICFILES_DIRS = [
 
 # https://whitenoise.evans.io/en/stable/django.html#add-compression-and-caching-support
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # Templates
 # ------------------------------------------------------------------------------
@@ -189,6 +205,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 # Admin
 # ------------------------------------------------------------------------------
