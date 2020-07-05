@@ -6,7 +6,12 @@ A fairly basic django template that includes a non-modified [custom user model](
 
 There are several alternative custom user models included in this project:
 
+
 * Login with an email address
+
+  * with a username field
+  * without a username field
+
 * Username is no longer case sensitive
 
 *With more to come in the future*
@@ -39,7 +44,6 @@ You should be able to now start the django development server and see a very bas
 
 ```bash
 (venv) cd .\src\django_template\
-(venv) python manage.py makemigrations
 (venv) python manage.py migrate
 (venv) python manage.py runserver
 ```
