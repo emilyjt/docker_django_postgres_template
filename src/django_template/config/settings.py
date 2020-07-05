@@ -179,6 +179,9 @@ STATICFILES_DIRS = [
 # https://whitenoise.evans.io/en/stable/django.html#add-compression-and-caching-support
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# In case someone attempts to use media files with pillow.
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # Templates
 # ------------------------------------------------------------------------------
