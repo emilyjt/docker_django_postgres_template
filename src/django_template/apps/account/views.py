@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import (
     LoginView,
     LogoutView,
@@ -16,17 +15,24 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
+from .forms import MyUserCreationForm
+
 User = get_user_model()
 
 
 class MyRegisterView(CreateView):
     """
     This view allows a user to register an account.
+
+    Create view documentation here:
     https://docs.djangoproject.com/en/3.0/ref/class-based-views/generic-editing/#createview
+
+    `A view that displays a form for creating an object, redisplaying
+    the form with validation errors (if there are any) and saving the object.`
     """
 
     model = User
-    form_class = UserCreationForm
+    form_class = MyUserCreationForm
     template_name = "account/register.html"
 
     def get_success_url(self):

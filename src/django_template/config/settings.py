@@ -122,14 +122,6 @@ LOGIN_URL = "account:login"
 # LOGOUT_REDIRECT_URL = "main:home"
 
 
-# Email
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/3.0/topics/email/#module-django.core.mail
-
-# https://docs.djangoproject.com/en/3.0/topics/email/#console-backend
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-
 # Passwords
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -144,6 +136,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
+
+
+# Email
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/3.0/topics/email/#module-django.core.mail
+
+# https://docs.djangoproject.com/en/3.0/topics/email/#console-backend
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 # Middleware
