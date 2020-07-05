@@ -18,6 +18,6 @@
 {% comment %} This will work for a user model with a username, and if you opt for the email registration
 custom model, then this will display their email address instead.
 In practice, you should only need one of these variables. {% endcomment %}
-<p>Hello {% firstof request.user.username request.user.email %}</p>
+<p>Hello {% firstof request.user.first_name request.user.display_name request.user.username request.user.email %}</p>
 {% endif %}
 {% endblock content %}
