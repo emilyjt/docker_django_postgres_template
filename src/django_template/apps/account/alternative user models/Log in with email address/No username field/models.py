@@ -10,7 +10,7 @@ class MyUserManager(UserManager):
         """
         Create and save a user with the given email and password.
         """
-        if (not email) or email == "":
+        if not email:
             raise ValueError("Users must have an email address")
 
         email = self.normalize_email(email)
@@ -50,9 +50,9 @@ class User(AbstractUser):
     username = None
 
     USERNAME_FIELD = "email"
-    # REQUIRED_FIELDS cannot be empty, or you will be unable to create a superuser.
+
     # The docs claim this field is ONLY used in the creation of a super user.
     # See: https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#django.contrib.auth.models.CustomUser.REQUIRED_FIELDS
-    REQUIRED_FIELDS = ("first_name",)
+    REQUIRED_FIELDS = []
 
     objects = MyUserManager()
