@@ -15,13 +15,14 @@ https://github.com/pydanny/cookiecutter-django/blob/master/%7B%7Bcookiecutter.pr
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+APPS_DIR = os.path.join(BASE_DIR, "django_template")
 
-
-# General
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/3.0/ref/settings/#debug
-DEBUG = True
+"""
+-------------------------------------------------------------------------------
+General
+-------------------------------------------------------------------------------
+"""
 
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -45,69 +46,67 @@ USE_L10N = True
 USE_TZ = True
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#locale-paths
-# LOCALE_PATHS = os.path.join(BASE_DIR, "locale")
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
-# https://docs.djangoproject.com/en/3.0/ref/settings/#secret-key
-SECRET_KEY = os.getenv(
-    "SECRET_KEY", b"d\x07\xdf3\xfb\x90C\xeeW5\xe9\xc0\x86\x04Bi;\x1b\xfe`\x88\x1aL\xc4"
-)
+"""
+-------------------------------------------------------------------------------
+Apps
+-------------------------------------------------------------------------------
+"""
+INSTALLED_APPS = [
+    # -------------------------------------------------------------------------
+    "whitenoise.runserver_nostatic",  # https://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
+    # -------------------------------------------------------------------------
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # -------------------------------------------------------------------------
+    "django_template.main",
+    "django_template.account",
+]
 
-# https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+"""
+-------------------------------------------------------------------------------
+Email
 
+https://docs.djangoproject.com/en/3.0/topics/email/#module-django.core.mail
+-------------------------------------------------------------------------------
+"""
+# https://docs.djangoproject.com/en/3.0/topics/email/#console-backend
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# Database
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+Database
+-------------------------------------------------------------------------------
+"""
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": os.path.join(APPS_DIR, "db.sqlite3"),
     }
 }
 
-
-# Urls
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+URLs
+-------------------------------------------------------------------------------
+"""
 # https://docs.djangoproject.com/en/3.0/ref/settings/#root-urlconf
 ROOT_URLCONF = "config.urls"
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
 
-
-# Apps
-# ------------------------------------------------------------------------------
-DJANGO_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    # https://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
-    "whitenoise.runserver_nostatic",
-    #
-    "django.contrib.staticfiles",
-]
-
-THIRD_PARTY_APPS = []
-
-LOCAL_APPS = [
-    "apps.main",
-    "apps.account",
-]
-
-# https://docs.djangoproject.com/en/3.0/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
-
-# Migrations
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/3.0/ref/settings/#migration-modules
-
-
-# Authentication
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+Authentication
+-------------------------------------------------------------------------------
+"""
 # https://docs.djangoproject.com/en/3.0/ref/settings/#authentication-backends
 # AUTHENTICATION_BACKENDS = [
 #     "django.contrib.auth.backends.ModelBackend",
@@ -122,8 +121,20 @@ LOGIN_URL = "account:login"
 # LOGOUT_REDIRECT_URL = "main:home"
 
 
-# Passwords
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+Passwords
+-------------------------------------------------------------------------------
+"""
+# https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
+PASSWORD_HASHERS = [
+    # https://docs.djangoproject.com/en/dev/topics/auth/passwords/#using-argon2-with-django
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+]
+
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -137,34 +148,33 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-
-# Email
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/3.0/topics/email/#module-django.core.mail
-
-# https://docs.djangoproject.com/en/3.0/topics/email/#console-backend
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-
-# Middleware
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+Middleware
+-------------------------------------------------------------------------------
+"""
 # https://docs.djangoproject.com/en/3.0/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    # https://whitenoise.evans.io/en/stable/django.html#enable-whitenoise
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    #
+    # -------------------------------------------------------------------------
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # https://whitenoise.evans.io/en/stable/django.html#enable-whitenoise`
+    # -------------------------------------------------------------------------
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    # "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 
-# Static
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+Static
+-------------------------------------------------------------------------------
+"""
 # https://docs.djangoproject.com/en/3.0/ref/settings/#static-root
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
@@ -173,7 +183,7 @@ STATIC_URL = "/static/"
 
 # https://docs.djangoproject.com/en/3.0/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(APPS_DIR, "static"),
 ]
 
 # https://whitenoise.evans.io/en/stable/django.html#add-compression-and-caching-support
@@ -181,15 +191,18 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # In case someone attempts to use media files with pillow.
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_ROOT = os.path.join(APPS_DIR, "media")
 
-# Templates
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+Templates
+-------------------------------------------------------------------------------
+"""
 # https://docs.djangoproject.com/en/3.0/ref/settings/#templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [os.path.join(APPS_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             # https://docs.djangoproject.com/en/3.0/ref/settings/#template-loaders
@@ -210,8 +223,11 @@ TEMPLATES = [
 ]
 
 
-# Admin
-# ------------------------------------------------------------------------------
+"""
+-------------------------------------------------------------------------------
+Admin
+-------------------------------------------------------------------------------
+"""
 # https://docs.djangoproject.com/en/3.0/ref/settings/#admins
 ADMINS = [("Emily", "12156026+emilyjt@users.noreply.github.com")]
 

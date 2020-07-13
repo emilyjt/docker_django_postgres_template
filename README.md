@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/emilyjt/django_template)](https://github.com/emilyjt/django_template/blob/master/LICENSE)
 
-A fairly basic django template that includes a non-modified [custom user model](https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project) and an opinionated [good folder structure](https://hynek.me/articles/testing-packaging/).
+A fairly basic django template that includes a non-modified [custom user model](https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project).
 
 There are several alternative custom user models included in this project:
 
