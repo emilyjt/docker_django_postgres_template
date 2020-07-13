@@ -52,9 +52,17 @@ if __name__ == "__main__":
         os.path.join(BASE_DIR, "django_template", "main", "apps.py"),
         os.path.join(BASE_DIR, "config", "urls.py"),
         os.path.join(BASE_DIR, "config", "settings", "base.py"),
+        os.path.join(BASE_DIR, "pyproject.toml"),
     ]
 
     for file in files_to_change:
         with open(file) as open_file:
-            if "django_template" in open_file.read():
-                print("true")
+            file_data = open_file.read()
+
+        file_data = file_data.replace("django_template", slug)
+
+        with open(file, "w") as open_file:
+            open_file.write(file_data)
+
+    os.rename(os.path.join(BASE_DIR, "django_template"), slug)
+    os.rename(os.path.dirname(BASE_DIR), slug)
