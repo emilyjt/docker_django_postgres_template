@@ -21,8 +21,8 @@ from django.views import defaults as default_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("account/", include("django_template.account.urls")),
-    path("", include("django_template.main.urls")),
+    path("account/", include("apps.account.urls")),
+    path("", include("apps.main.urls")),
 ]
 
 if settings.DEBUG:

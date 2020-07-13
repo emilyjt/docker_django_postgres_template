@@ -16,7 +16,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-APPS_DIR = os.path.join(BASE_DIR, "django_template")
+APPS_DIR = os.path.join(BASE_DIR, "apps")
 
 """
 -------------------------------------------------------------------------------
@@ -64,8 +64,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # -------------------------------------------------------------------------
-    "django_template.main",
-    "django_template.account",
+    "apps.main",
+    "apps.account",
 ]
 
 """
