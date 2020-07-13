@@ -1,15 +1,10 @@
-Poetry export non-dev requirements
-----------------------------------
+Here is a list of useful commands:
 
+    Poetry export non-dev requirements:
 poetry export -f requirements.txt -o requirements.txt --without-hashes
 
-
-Poetry export dev requirements
-----------------------------------
-
+    Poetry export dev requirements:
 poetry export -f requirements.txt -o requirements-dev.txt --without-hashes --dev
 
-Heroku
-------
-
+    Heroku
 heroku run python ./src/django_template/manage.py <command>
