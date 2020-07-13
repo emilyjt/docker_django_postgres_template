@@ -23,11 +23,24 @@ These instructions will get you a copy of the project up and running on your loc
 ### On a Windows OS
 
 ```bash
-git clone https://github.com/emilyjt/django_template.git
-cd django_template
+git clone https://github.com/emilyjt/django_template.git <project name>
+cd <project name>
 ```
 
+I have included a quick script to rename the refrences to `django template` in the project.
+So for the next step, we will:
+
+```bash
+py .\start_project.py
+(input prompt) What would you like your project to be called?
+<project name>
+```
+
+---
+
 Create and activate a virtual environment:
+
+#### Venv
 
 ```bash
 python -m venv .venv
@@ -40,13 +53,22 @@ and install the project requirements:
 (venv) pip install -r requirements-dev.txt
 ```
 
+#### Poetry
+
+```bash
+poetry install
+poetry shell
+```
+
+---
+
 You should be able to now start the django development server and see a very basic home page with a random number and a link to log in.
 
 ```bash
-(venv) cd .\src\django_template\
 (venv) python manage.py migrate
 (venv) python manage.py runserver
 ```
+
 
 ## Authors
 
