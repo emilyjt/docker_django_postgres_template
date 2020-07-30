@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./docker/development/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./src/django_template:/home/app/django/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.envs/development/.django
+      - ./.envs/development/.postgres
+    depends_on:
+      - postgresdb
+  postgresdb:
+    image: postgres:12.3-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.envs/development/.postgres
+
+volumes:
+  postgres_data:

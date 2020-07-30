@@ -1,0 +1,5 @@
+POSTGRES_HOST=postgresdb
+POSTGRES_PORT=5432
+POSTGRES_DB=djangotemplatedb
+POSTGRES_USER=djangotemplate
+POSTGRES_PASSWORD=femurzmargaritazbruntzbroadsidezatriumzgoofball
