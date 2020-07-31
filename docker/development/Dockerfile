@@ -30,7 +30,7 @@ RUN dos2unix ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
 # copy the project to $APP_HOME
-COPY ./src/drivewithemily ./django
+COPY ./src/django_template ./django
 WORKDIR $APP_HOME
 
 # run entrypoint.sh
