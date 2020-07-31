@@ -139,9 +139,6 @@ STATICFILES_DIRS = [
     os.path.join(APPS_DIR, "static"),
 ]
 
-# https://whitenoise.evans.io/en/stable/django.html#add-compression-and-caching-support
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 # In case someone attempts to use media files with pillow.
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
@@ -173,7 +170,6 @@ ADMINS = [("Emily", "12156026+emilyjt@users.noreply.github.com")]
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#managers
 MANAGERS = ADMINS
-]
 
 # -----------------------------------------------------------------------------
 # Internationalization

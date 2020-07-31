@@ -1,23 +1,22 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as UserAdmin
 from django.utils.translation import gettext_lazy as _
+
+from .forms import MyUserCreationForm
 
 # Refrence to the user model for cleaner code
 User = get_user_model()
 
 
-@admin.register(User)
+# @admin.register(User)  # <-- this line will need to uncommented
 class MyUserAdmin(UserAdmin):
-    """
-    Just a basic custom model admin, almost an exact copy of the Django standard
-    but with `last_login` and `date_joined` as read-only.
-    """
+    add_form = MyUserCreationForm
 
     list_display = ("username", "email", "first_name", "last_name", "is_staff")
 
     fieldsets = (
-        (None, {"fields": ("username", "password")}),
+        (None, {"fields": ("username", "display_name", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
             _("Permissions"),
@@ -34,6 +33,6 @@ class MyUserAdmin(UserAdmin):
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
 
-    readonly_fields = ("last_login", "date_joined")
+    readonly_fields = ("display_name", "last_login", "date_joined")
 
     search_fields = ("username", "email")

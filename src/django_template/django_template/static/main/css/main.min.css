@@ -1,0 +1,7 @@
+a.is-active:before {
+    content: ">";
+}
+
+a.is-active:after {
+    content: "<";
+}
