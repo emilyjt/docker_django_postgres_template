@@ -1,6 +1,6 @@
 POSTGRES_ENGINE=django.db.backends.postgresql
 POSTGRES_HOST=postgresdb
 POSTGRES_PORT=5432
-POSTGRES_DB=djangotemplatedb_development
-POSTGRES_USER=djangotemplate_development
+POSTGRES_DB=django_template_db_development
+POSTGRES_USER=django_template_development
 POSTGRES_PASSWORD=skewedzsedativezthreatenzmuttzunifierzhuman

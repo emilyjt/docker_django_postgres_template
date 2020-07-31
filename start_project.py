@@ -1,7 +1,3 @@
-"""
-
-"""
-
 import os
 
 
@@ -46,13 +42,34 @@ if __name__ == "__main__":
     slug = _slugify(project_name)
 
     files_to_change = [
-        os.path.join(BASE_DIR, "django_template", "account", "__init__.py"),
-        os.path.join(BASE_DIR, "django_template", "account", "apps.py"),
-        os.path.join(BASE_DIR, "django_template", "main", "__init__.py"),
-        os.path.join(BASE_DIR, "django_template", "main", "apps.py"),
-        os.path.join(BASE_DIR, "config", "urls.py"),
-        os.path.join(BASE_DIR, "config", "settings", "base.py"),
+        os.path.join(BASE_DIR, "useful_information.txt"),
         os.path.join(BASE_DIR, "pyproject.toml"),
+        os.path.join(BASE_DIR, "docker-compose.yml"),
+        os.path.join(
+            BASE_DIR, "src", "django_template", "django_template", "main", "__init__.py"
+        ),
+        os.path.join(
+            BASE_DIR, "src", "django_template", "django_template", "main", "apps.py"
+        ),
+        os.path.join(
+            BASE_DIR,
+            "src",
+            "django_template",
+            "django_template",
+            "account",
+            "__init__.py",
+        ),
+        os.path.join(
+            BASE_DIR, "src", "django_template", "django_template", "account", "apps.py"
+        ),
+        os.path.join(BASE_DIR, "src", "django_template", "config", "urls.py"),
+        os.path.join(
+            BASE_DIR, "src", "django_template", "config", "settings", "base.py"
+        ),
+        os.path.join(BASE_DIR, "docker", "development", "Dockerfile"),
+        os.path.join(BASE_DIR, "docker", "production", "Dockerfile"),
+        os.path.join(BASE_DIR, ".envs", "development", ".postgres"),
+        os.path.join(BASE_DIR, ".envs", "production", ".postgres"),
     ]
 
     for file in files_to_change:
@@ -64,4 +81,5 @@ if __name__ == "__main__":
         with open(file, "w") as open_file:
             open_file.write(file_data)
 
-    os.rename(os.path.join(BASE_DIR, "django_template"), slug)
+    os.rename(os.path.join(BASE_DIR, "src", "django_template", "django_template"), slug)
+    os.rename(os.path.join(BASE_DIR, "src", "django_template"), slug)
