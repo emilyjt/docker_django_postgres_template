@@ -9,6 +9,9 @@ python = "^3.8"
 django = "^3.0.8"
 argon2-cffi = "^20.1.0"
 gunicorn = "^20.0.4"
+pip = "^20.2"
+psycopg2-binary = "^2.8.5"
+pillow = "^7.2.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

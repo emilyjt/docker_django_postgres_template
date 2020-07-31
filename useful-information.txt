@@ -7,3 +7,7 @@ poetry export -f requirements.txt > requirements.production.txt --without-hashes
 # Docker commands
 docker-compose <command>
 docker-compose -f .\docker-compose.production.yml <command>
+
+# The containers should be named: django_template_postgresdb_1, django_template_django_1
+docker exec -it <container name/ID> /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
+docker exec -it django_template_django_1 /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"

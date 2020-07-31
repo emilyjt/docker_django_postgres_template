@@ -4,4 +4,4 @@ DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
 
 DJANGO_SECRET_KEY=q1+smrnxg#leaa60y#2h93hd%6e_cm!llf-krqddzv^fr_o(f%
 
-DJANGO_DEBUG=1
+DJANGO_DEBUG=True
