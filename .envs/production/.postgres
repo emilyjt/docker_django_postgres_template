@@ -2,4 +2,6 @@ POSTGRES_HOST=postgresdb
 POSTGRES_PORT=5432
 POSTGRES_DB=djangotemplatedb
 POSTGRES_USER=djangotemplate
+
+# Don't forget to change me
 POSTGRES_PASSWORD=femurzmargaritazbruntzbroadsidezatriumzgoofball

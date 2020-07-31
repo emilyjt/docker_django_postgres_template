@@ -1,3 +1,9 @@
+# This creates requirements.txt
 poetry export -f requirements.txt > requirements.txt --without-hashes --dev
 
+# This creates requirements.production.txt
 poetry export -f requirements.txt > requirements.production.txt --without-hashes
+
+# Docker commands
+docker-compose <command>
+docker-compose -f .\docker-compose.production.yml <command>
