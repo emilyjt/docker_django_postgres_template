@@ -35,6 +35,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     netcat \
+    dos2unix \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -57,6 +58,7 @@ RUN pip install --no-cache /wheels/*
 
 # copy entrypoint.production.sh and give it execute permissions
 COPY ./docker/production/entrypoint.production.sh $HOME
+RUN dos2unix /home/app/entrypoint.production.sh
 RUN chmod +x /home/app/entrypoint.production.sh
 
 # copy the project to $APP_HOME

@@ -9,6 +9,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     netcat \
+    dos2unix \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,10 +26,11 @@ RUN pip install -r ./requirements.txt
 
 # copy entrypoint.sh and give it execute permissions
 COPY ./docker/development/entrypoint.sh .
+RUN dos2unix ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
 # copy the project to $APP_HOME
-COPY ./src/django_template ./django
+COPY ./src/drivewithemily ./django
 WORKDIR $APP_HOME
 
 # run entrypoint.sh
