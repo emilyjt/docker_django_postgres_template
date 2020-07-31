@@ -81,5 +81,11 @@ if __name__ == "__main__":
         with open(file, "w") as open_file:
             open_file.write(file_data)
 
-    os.rename(os.path.join(BASE_DIR, "src", "django_template", "django_template"), slug)
-    os.rename(os.path.join(BASE_DIR, "src", "django_template"), slug)
+    os.rename(
+        os.path.join(BASE_DIR, "src", "django_template", "django_template"),
+        os.path.join(BASE_DIR, "src", "django_template", slug),
+    )
+    os.rename(
+        os.path.join(BASE_DIR, "src", "django_template"),
+        os.path.join(BASE_DIR, "src", slug),
+    )
