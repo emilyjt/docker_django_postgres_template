@@ -28,10 +28,10 @@ def _slugify(text):
         "'",
     ]
 
-    translate_table = {ord(char): u"" for char in non_url_safe}
+    translate_table = {ord(char): "" for char in non_url_safe}
 
     text = text.translate(translate_table)
-    text = u"_".join(text.split())
+    text = "_".join(text.split())
     return text.lower()
 
 
@@ -73,19 +73,25 @@ if __name__ == "__main__":
     ]
 
     for file in files_to_change:
-        with open(file) as open_file:
-            file_data = open_file.read()
+        try:
+            with open(file) as open_file:
+                file_data = open_file.read()
 
-        file_data = file_data.replace("django_template", slug)
+            file_data = file_data.replace("django_template", slug)
 
-        with open(file, "w") as open_file:
-            open_file.write(file_data)
+            with open(file, "w") as open_file:
+                open_file.write(file_data)
+        except FileNotFoundError:
+            print(f"The file: {file} appears to be missing...")
 
-    os.rename(
-        os.path.join(BASE_DIR, "src", "django_template", "django_template"),
-        os.path.join(BASE_DIR, "src", "django_template", slug),
-    )
-    os.rename(
-        os.path.join(BASE_DIR, "src", "django_template"),
-        os.path.join(BASE_DIR, "src", slug),
-    )
+    try:
+        os.rename(
+            os.path.join(BASE_DIR, "src", "django_template", "django_template"),
+            os.path.join(BASE_DIR, "src", "django_template", slug),
+        )
+        os.rename(
+            os.path.join(BASE_DIR, "src", "django_template"),
+            os.path.join(BASE_DIR, "src", slug),
+        )
+    except FileNotFoundError:
+        pass

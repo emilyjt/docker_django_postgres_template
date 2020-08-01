@@ -50,10 +50,7 @@ INSTALLED_APPS = [
 # -----------------------------------------------------------------------------
 # Email
 # -----------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/3.0/topics/email/#module-django.core.mail
 
-# https://docs.djangoproject.com/en/3.0/topics/email/#console-backend
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # -----------------------------------------------------------------------------
 # Database
