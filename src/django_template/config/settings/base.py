@@ -14,11 +14,17 @@ DEBUG = os.getenv("DJANGO_DEBUG", False)
 
 # This variable should be passed in from Docker
 # The value it receives is in .envs/<environment>/.django
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+# a default has been provided so that manage.py commands can run locally
+SECRET_KEY = os.getenv(
+    "DJANGO_SECRET_KEY", "gdzsjw+%hwbtjy%1$vi)rrr1$=^5o(!p!-fldfbot7ycpb_ar9"
+)
 
 # This variable should be passed in from Docker
 # The value it receives is in .envs/<environment>/.django
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS",).split(" ")
+# a default has been provided so that manage.py commands can run locally
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]"
+).split(" ")
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-SESSION_COOKIE_AGE
 SESSION_COOKIE_AGE = 1209600
