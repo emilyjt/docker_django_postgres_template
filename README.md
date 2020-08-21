@@ -83,6 +83,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
+- spookylukey - [Django Views — The Right Way](https://spookylukey.github.io/django-views-the-right-way/the-pattern.html)
 - Claudio Jolowicz - [Hypermodern Python](https://cjolowicz.github.io/posts/hypermodern-python-01-setup/)
 - Vitor Freitas - [How to Use Django's Built-in Login System](https://simpleisbetterthancomplex.com/tutorial/2016/06/27/how-to-use-djangos-built-in-login-system.html)
 - [calmcode](https://calmcode.io/)
