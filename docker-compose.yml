@@ -16,7 +16,7 @@ services:
     depends_on:
       - postgresdb
   postgresdb:
-    image: postgres:12.3-alpine
+    image: postgres:12.4-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
