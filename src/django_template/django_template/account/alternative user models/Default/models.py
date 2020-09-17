@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
+from django_lifecycle import LifecycleModelMixin
 
 
-class User(AbstractUser):
+class User(LifecycleModelMixin, AbstractUser):
     """
     https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 

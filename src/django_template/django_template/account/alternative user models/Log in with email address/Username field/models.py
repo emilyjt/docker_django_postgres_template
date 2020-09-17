@@ -2,11 +2,12 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_lifecycle import LifecycleModelMixin
 
 from .managers import MyUserManager
 
 
-class User(AbstractUser):
+class User(LifecycleModelMixin, AbstractUser):
     username_validator = UnicodeUsernameValidator()
 
     email = models.EmailField(

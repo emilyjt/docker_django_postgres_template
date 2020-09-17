@@ -1,11 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_lifecycle import LifecycleModelMixin
 
 from .managers import MyUserManager
 
 
-class User(AbstractUser):
+class User(LifecycleModelMixin, AbstractUser):
     email = models.EmailField(
         _("email address"),
         unique=True,
