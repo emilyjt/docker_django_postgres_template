@@ -12,6 +12,7 @@ gunicorn = "^20.0.4"
 pip = "^20.2"
 psycopg2-binary = "^2.8.5"
 pillow = "^7.2.0"
+django-lifecycle = "^0.7.7"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
