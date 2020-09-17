@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Start of your entries
     "django_template.account",
-    "django_template.main",
+    "django_template.core",
 ]
 
 # -----------------------------------------------------------------------------
@@ -82,9 +82,9 @@ AUTH_USER_MODEL = "account.User"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-url
 LOGIN_URL = "account:login"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "main:home"
+LOGIN_REDIRECT_URL = "core:home"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#logout-redirect-url
-LOGOUT_REDIRECT_URL = "main:home"
+LOGOUT_REDIRECT_URL = "core:home"
 
 # -----------------------------------------------------------------------------
 # Authentication

@@ -19,12 +19,12 @@
     <nav>
         {% comment %}
         The following code is used to style our active url
-        {% if request.resolver_match.view_name == 'main:home' %}is-active{% endif %}
+        {% if request.resolver_match.view_name == 'core:home' %}is-active{% endif %}
         it works by comparing the current pages `view_name` to the string provided.
-        It simply translates to - if the current view is 'main:home' add the class `is-active`
+        It simply translates to - if the current view is 'core:home' add the class `is-active`
         {% endcomment %}
-        <a class="{% if request.resolver_match.view_name == 'main:home' %}is-active{% endif %}"
-            href="{% url 'main:home' %}">Home</a>
+        <a class="{% if request.resolver_match.view_name == 'core:home' %}is-active{% endif %}"
+            href="{% url 'core:home' %}">Home</a>
         {% if request.user.is_authenticated and request.user.is_staff %}
         <a href="{% url 'admin:index' %}">Django Admin</a>
         {% endif %}

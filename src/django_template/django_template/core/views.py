@@ -19,5 +19,5 @@ from django.template.response import TemplateResponse
 
 def home(request):
     return TemplateResponse(
-        request, "main/home.html", {"number": random.randrange(1, 100)}
+        request, "core/home.html", {"number": random.randrange(1, 100)}
     )

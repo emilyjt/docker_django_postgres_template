@@ -7,7 +7,7 @@ from django.views import defaults as default_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("account/", include("django_template.account.urls")),
-    path("", include("django_template.main.urls")),
+    path("", include("django_template.core.urls")),
 ]
 
 if settings.DEBUG:

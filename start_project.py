@@ -46,10 +46,10 @@ if __name__ == "__main__":
         os.path.join(BASE_DIR, "pyproject.toml"),
         os.path.join(BASE_DIR, "docker-compose.yml"),
         os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "main", "__init__.py"
+            BASE_DIR, "src", "django_template", "django_template", "core", "__init__.py"
         ),
         os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "main", "apps.py"
+            BASE_DIR, "src", "django_template", "django_template", "core", "apps.py"
         ),
         os.path.join(
             BASE_DIR,

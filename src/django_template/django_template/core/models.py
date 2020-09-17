@@ -8,9 +8,9 @@ class TimeStampedModel(models.Model):
 
     Example:
 
-        # apps/someapp/models.py
+        # django_template/someapp/models.py
 
-        from apps.main.models import TimeStampedModel
+        from django_template.core.models import TimeStampedModel
 
         # Create your models here.
         class SomeModel(TimeStampedModel):
@@ -19,7 +19,7 @@ class TimeStampedModel(models.Model):
     The above model will inherit the `created` and `updated` fields.
     To view them on the admin panel, something like the following would be needed:
 
-        #apps/someapp/admin.py
+        # django_template/someapp/admin.py
         fieldsets = (
             (None, {"fields": ("name",)}),
             (_("Object timestamps"), {"fields": ("updated", "created"), "classes": ("collapse",)},),
