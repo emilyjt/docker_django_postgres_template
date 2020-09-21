@@ -19,14 +19,14 @@ services:
       - postgresdb
   # -------------------------------------------------------
   postgresdb:
-    image: postgres:12.3-alpine
+    image: postgres:alpine # I would suggest pinning this to a version
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.envs/production/.postgres
   # -------------------------------------------------------
   nginx:
-    image: nginx:alpine
+    image: nginx:alpine # I would suggest pinning this to a version
     volumes:
       - ./docker/production/nginx.conf:/etc/nginx/conf.d/default.conf
       - static_volume:/home/app/django/staticfiles
