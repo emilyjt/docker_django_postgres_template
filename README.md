@@ -30,7 +30,7 @@ I have included a quick script to rename all refrences to `django_template` in t
 So for the next step, we will:
 
 ```bash
-py .\start_project.py
+py .\\scripts\\start_project.py
 (input prompt) What would you like your project to be called?
 <project name>
 ```

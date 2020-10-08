@@ -1,4 +1,4 @@
-FROM python:3.8.5
+FROM python:3.9
 
 # PYTHONDONTWRITEBYTECODE: Prevents Python from writing pyc files to disc (equivalent to python -B option)
 ENV PYTHONDONTWRITEBYTECODE 1

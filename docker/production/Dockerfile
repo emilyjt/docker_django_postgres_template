@@ -1,6 +1,6 @@
 ###############################################################################
 
-FROM python:3.8.5 AS builder
+FROM python:3.9 AS builder
 
 # PYTHONDONTWRITEBYTECODE: Prevents Python from writing pyc files to disc (equivalent to python -B option)
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -24,7 +24,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /home/app/wheels -r requireme
 
 ###############################################################################
 
-FROM python:3.8.5-slim
+FROM python:3.9-slim
 
 # PYTHONDONTWRITEBYTECODE: Prevents Python from writing pyc files to disc (equivalent to python -B option)
 ENV PYTHONDONTWRITEBYTECODE 1
