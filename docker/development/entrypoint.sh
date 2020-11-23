@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$POSTGRES_HOST" = "postgresdb" ]
+if [ "$POSTGRES_HOST" = "django_template_postgresdb" ]
 then
     echo "Waiting for postgres..."
 

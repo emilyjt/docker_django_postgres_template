@@ -11,7 +11,7 @@ argon2-cffi = "^20.1.0"
 gunicorn = "^20.0.4"
 pip = "^20.2"
 psycopg2-binary = "^2.8.5"
-pillow = "^7.2.0"
+pillow = "^8.0"
 django-lifecycle = "^0.7.7"
 
 [tool.poetry.dev-dependencies]

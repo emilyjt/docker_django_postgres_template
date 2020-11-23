@@ -16,6 +16,7 @@ services:
     depends_on:
       - postgresdb
   postgresdb:
+    container_name: django_template_postgresdb
     image: postgres:alpine # I would suggest pinning this to a version
     volumes:
       - postgres_data:/var/lib/postgresql/data/

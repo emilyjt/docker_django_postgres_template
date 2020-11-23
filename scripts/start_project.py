@@ -42,9 +42,14 @@ if __name__ == "__main__":
     slug = _slugify(project_name)
 
     files_to_change = [
+        # /useful_information.txt
         os.path.join(BASE_DIR, "useful_information.txt"),
+        # /pyproject.toml
         os.path.join(BASE_DIR, "pyproject.toml"),
+        # /docker-compose.yml
         os.path.join(BASE_DIR, "docker-compose.yml"),
+        # /docker-compose.production.yml
+        os.path.join(BASE_DIR, "docker-compose.production.yml"),
         os.path.join(
             BASE_DIR, "src", "django_template", "django_template", "core", "__init__.py"
         ),
@@ -68,6 +73,10 @@ if __name__ == "__main__":
         ),
         os.path.join(BASE_DIR, "docker", "development", "Dockerfile"),
         os.path.join(BASE_DIR, "docker", "production", "Dockerfile"),
+        # /docker/development/entrypoint.sh
+        os.path.join(BASE_DIR, "docker", "development", "entrypoint.sh"),
+        # /docker/production/entrypoint.production.sh
+        os.path.join(BASE_DIR, "docker", "production", "entrypoint.production.sh"),
         os.path.join(BASE_DIR, ".envs", "development", ".postgres"),
         os.path.join(BASE_DIR, ".envs", "production", ".postgres"),
     ]
