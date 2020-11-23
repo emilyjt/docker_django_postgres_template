@@ -10,13 +10,12 @@ services:
     volumes:
       - static_volume:/home/app/django/staticfiles
       - media_volume:/home/app/django/mediafiles
-    expose:
-      - 8000
     env_file:
       - ./.envs/production/.django
       - ./.envs/production/.postgres
     depends_on:
       - postgresdb
+    restart: unless-stopped
   # -------------------------------------------------------
   postgresdb:
     container_name: django_template_postgresdb
@@ -25,6 +24,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.envs/production/.postgres
+    restart: unless-stopped
   # -------------------------------------------------------
   nginx:
     image: nginx:alpine # I would suggest pinning this to a version
@@ -34,12 +34,16 @@ services:
       - media_volume:/home/app/django/mediafiles
     env_file:
       - ./.envs/production/.nginx_proxy
-    ports:
-      - "80:80"
     depends_on:
       - django
+    restart: unless-stopped
 
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
