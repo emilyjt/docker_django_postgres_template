@@ -13,7 +13,7 @@ docker-compose -f .\docker-compose.production.yml <command>
 # database: django_template_postgresdb_dev (development) or django_template_postgresdb (production)
 # django: django_template_django_dev (development) or django_template_django (production)
 docker exec -it <container name/ID> /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
-docker exec -it django_template_django_1 /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
+docker exec -it django_template_django /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 
 # Generate a new secret key
 python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())'
