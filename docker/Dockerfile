@@ -21,8 +21,6 @@ RUN apt-get update \
 ARG requirements
 COPY ./$requirements ./
 RUN python -m pip install --upgrade pip
-# If we are running from the development compose, we should delete the production requirements.txt and use the requirements.development.txt instead
-# RUN if [ "$mode" = "development" ] ; then rm requirements.txt && cp requirements.development.txt requirements.txt ; rm requirements.development.txt ; fi
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /home/app/wheels -r $requirements
 
 ###############################################################################
@@ -46,24 +44,25 @@ RUN groupadd -r app && useradd --no-log-init -r -g app app
 # Set some enviroment variables and create the folders
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/django
-RUN mkdir -p $APP_HOME
-RUN mkdir $APP_HOME/staticfiles
-RUN mkdir $APP_HOME/mediafiles
+RUN mkdir -p $APP_HOME \
+    && mkdir $APP_HOME/staticfiles \
+    && mkdir $APP_HOME/mediafiles
 WORKDIR $APP_HOME
 
 # copy only the dependencies installation from the 1st stage image
 RUN python -m pip install --upgrade pip
 COPY --from=builder /home/app/wheels /wheels
-COPY --from=builder /home/app/$requirements .
+COPY --from=builder /home/app/$requirements $HOME
 RUN pip install --no-cache /wheels/*
 
 # copy entrypoint.sh and give it execute permissions
 COPY ./docker/entrypoint.sh $HOME
-RUN dos2unix /home/app/entrypoint.sh
-RUN chmod +x /home/app/entrypoint.sh
+RUN dos2unix /home/app/entrypoint.sh \
+    && chmod +x /home/app/entrypoint.sh
 
 COPY ./docker/wait-for-it.sh /usr/local/bin/
-RUN dos2unix /usr/local/bin/wait-for-it.sh
+RUN dos2unix /usr/local/bin/wait-for-it.sh \
+    && chmod +x /usr/local/bin/wait-for-it.sh
 RUN chmod +x /usr/local/bin/wait-for-it.sh
 
 # copy the project to $APP_HOME
