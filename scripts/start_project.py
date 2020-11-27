@@ -76,6 +76,7 @@ if __name__ == "__main__":
         os.path.join(BASE_DIR, "docker", "Dockerfile"),
         os.path.join(BASE_DIR, ".envs", "development", ".postgres"),
         os.path.join(BASE_DIR, ".envs", "production", ".postgres"),
+        os.path.join(BASE_DIR, "docker", "nginx.conf"),
     ]
 
     for file in files_to_change:

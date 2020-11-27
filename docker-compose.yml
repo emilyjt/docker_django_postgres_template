@@ -3,6 +3,7 @@ version: "3"
 services:
   # -------------------------------------------------------
   django:
+    container_name: django_template_django
     build:
       context: .
       dockerfile: ./docker/Dockerfile
