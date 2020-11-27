@@ -18,9 +18,12 @@ RUN apt-get update \
     musl-dev
 
 # Copy the requirements over, and create the wheels
-COPY ./requirements.production.txt .
+ARG requirements
+COPY ./$requirements ./
 RUN python -m pip install --upgrade pip
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /home/app/wheels -r requirements.production.txt
+# If we are running from the development compose, we should delete the production requirements.txt and use the requirements.development.txt instead
+# RUN if [ "$mode" = "development" ] ; then rm requirements.txt && cp requirements.development.txt requirements.txt ; rm requirements.development.txt ; fi
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /home/app/wheels -r $requirements
 
 ###############################################################################
 
@@ -31,11 +34,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # PYTHONUNBUFFERED: Prevents Python from buffering stdout and stderr (equivalent to python -u option)
 ENV PYTHONUNBUFFERED 1
 
-# We need netcat to check if the postgres database has properly started
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    netcat \
-    dos2unix \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
+    dos2unix \ 
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -53,13 +54,17 @@ WORKDIR $APP_HOME
 # copy only the dependencies installation from the 1st stage image
 RUN python -m pip install --upgrade pip
 COPY --from=builder /home/app/wheels /wheels
-COPY --from=builder /home/app/requirements.production.txt .
+COPY --from=builder /home/app/$requirements .
 RUN pip install --no-cache /wheels/*
 
-# copy entrypoint.production.sh and give it execute permissions
-COPY ./docker/production/entrypoint.production.sh $HOME
-RUN dos2unix /home/app/entrypoint.production.sh
-RUN chmod +x /home/app/entrypoint.production.sh
+# copy entrypoint.sh and give it execute permissions
+COPY ./docker/entrypoint.sh $HOME
+RUN dos2unix /home/app/entrypoint.sh
+RUN chmod +x /home/app/entrypoint.sh
+
+COPY ./docker/wait-for-it.sh /usr/local/bin/
+RUN dos2unix /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
 
 # copy the project to $APP_HOME
 COPY ./src/django_template $APP_HOME
@@ -70,5 +75,5 @@ RUN chown -R app:app $APP_HOME
 # change to the app user
 USER app
 
-# run entrypoint.production.sh
-ENTRYPOINT ["/home/app/entrypoint.production.sh"]
+# run entrypoint.sh
+ENTRYPOINT ["/home/app/entrypoint.sh"]

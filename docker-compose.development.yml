@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  django_dev:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        requirements: requirements.development.txt # this is the name of the requirements file you wish to be installed
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./src/django_template:/home/app/django/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.envs/development/.django
+      - ./.envs/development/.postgres
+    depends_on:
+      - postgresdb_dev
+    # restart: unless-stopped
+  postgresdb_dev:
+    container_name: django_template_postgresdb_dev
+    image: postgres:alpine # I would suggest pinning this to a version
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data/
+    env_file:
+      - ./.envs/development/.postgres
+    # restart: unless-stopped
+
+volumes:
+  postgres_data_dev:

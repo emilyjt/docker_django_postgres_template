@@ -1,26 +1,13 @@
-appdirs==1.4.4; python_version >= "3.6"
 argon2-cffi==20.1.0
 asgiref==3.3.1; python_version >= "3.6"
-attrs==20.3.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
-black==19.10b0; python_version >= "3.6"
 cffi==1.14.3
-click==7.1.2; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
-django-debug-toolbar==2.2; python_version >= "3.5"
 django-lifecycle==0.7.7
 django==3.1.3; python_version >= "3.6"
-flake8==3.8.4; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 gunicorn==20.0.4; python_version >= "3.4"
-mccabe==0.6.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
-pathspec==0.8.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 pillow==8.0.1; python_version >= "3.6"
 psycopg2-binary==2.8.6; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
-pycodestyle==2.6.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 pycparser==2.20; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
-pyflakes==2.2.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 pytz==2020.4; python_version >= "3.6"
-regex==2020.11.13; python_version >= "3.6"
 six==1.15.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.3.0"
 sqlparse==0.4.1; python_version >= "3.6"
-toml==0.10.2; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.6"
-typed-ast==1.4.1; python_version >= "3.6"
 urlman==1.3.0

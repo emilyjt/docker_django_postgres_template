@@ -5,8 +5,10 @@ services:
   django:
     build:
       context: .
-      dockerfile: ./docker/production/Dockerfile
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+      dockerfile: ./docker/Dockerfile
+      args:
+        requirements: requirements.txt # this is the name of the requirements file you wish to be installed
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2
     volumes:
       - static_volume:/home/app/django/staticfiles
       - media_volume:/home/app/django/mediafiles
@@ -29,7 +31,7 @@ services:
   nginx:
     image: nginx:alpine # I would suggest pinning this to a version
     volumes:
-      - ./docker/production/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
       - static_volume:/home/app/django/staticfiles
       - media_volume:/home/app/django/mediafiles
     env_file:

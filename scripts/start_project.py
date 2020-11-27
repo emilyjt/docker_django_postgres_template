@@ -48,8 +48,10 @@ if __name__ == "__main__":
         os.path.join(BASE_DIR, "pyproject.toml"),
         # /docker-compose.yml
         os.path.join(BASE_DIR, "docker-compose.yml"),
-        # /docker-compose.production.yml
-        os.path.join(BASE_DIR, "docker-compose.production.yml"),
+        # /docker-compose.development.yml
+        os.path.join(BASE_DIR, "docker-compose.development.yml"),
+        # docker-compose.nginx-proxy.yml
+        os.path.join(BASE_DIR, "docker", "docker-compose.nginx-proxy.yml"),
         os.path.join(
             BASE_DIR, "src", "django_template", "django_template", "core", "__init__.py"
         ),
@@ -71,12 +73,7 @@ if __name__ == "__main__":
         os.path.join(
             BASE_DIR, "src", "django_template", "config", "settings", "base.py"
         ),
-        os.path.join(BASE_DIR, "docker", "development", "Dockerfile"),
-        os.path.join(BASE_DIR, "docker", "production", "Dockerfile"),
-        # /docker/development/entrypoint.sh
-        os.path.join(BASE_DIR, "docker", "development", "entrypoint.sh"),
-        # /docker/production/entrypoint.production.sh
-        os.path.join(BASE_DIR, "docker", "production", "entrypoint.production.sh"),
+        os.path.join(BASE_DIR, "docker", "Dockerfile"),
         os.path.join(BASE_DIR, ".envs", "development", ".postgres"),
         os.path.join(BASE_DIR, ".envs", "production", ".postgres"),
     ]
