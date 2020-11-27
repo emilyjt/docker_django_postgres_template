@@ -9,6 +9,9 @@ docker-compose <command>
 docker-compose -f .\docker-compose.production.yml <command>
 
 # The containers should be named: django_template_postgresdb_1, django_template_django_1
+# The containers should be named: 
+# database: django_template_postgresdb_dev (development) or django_template_postgresdb (production)
+# django: django_template_django_dev (development) or django_template_django (production)
 docker exec -it <container name/ID> /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 docker exec -it django_template_django_1 /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 
