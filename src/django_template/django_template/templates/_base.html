@@ -8,42 +8,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{% block title %}{% endblock title %}</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css" />
     <link rel="stylesheet" href="{% static 'css/main.min.css' %}" type="text/css" />
-    {% block extra_stylesheets %}
-    {% endblock extra_stylesheets %}
+    {% block extra_stylesheets %} {% endblock extra_stylesheets %}
 </head>
 
 <body class="{% block body_classes %}{% endblock body_classes %}">
     {% block nav %}
     <nav>
-        {% comment %}
-        The following code is used to style our active url
-        {% if request.resolver_match.view_name == 'core:home' %}is-active{% endif %}
-        it works by comparing the current pages `view_name` to the string provided.
-        It simply translates to - if the current view is 'core:home' add the class `is-active`
-        {% endcomment %}
-        <a class="{% if request.resolver_match.view_name == 'core:home' %}is-active{% endif %}"
-            href="{% url 'core:home' %}">Home</a>
+        {% comment %} The following code is used to style our active url {% if request.resolver_match.view_name == 'core:home' %}is-active{% endif %} it
+        works by comparing the current pages `view_name` to the string provided. It simply translates to - if the current view is 'core:home' add the class
+        `is-active` {% endcomment %}
+        <a class="{% if request.resolver_match.view_name == 'core:home' %}is-active{% endif %}" href="{% url 'core:home' %}">Home</a>
         {% if request.user.is_authenticated and request.user.is_staff %}
         <a href="{% url 'admin:index' %}">Django Admin</a>
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'account:logout' %}">
-            Logout
-        </a>
+        {% endif %} {% if request.user.is_authenticated %}
+        <a href="{% url 'account:logout' %}"> Logout </a>
         {% else %}
-        <a class="{% if request.resolver_match.view_name == 'account:login' %}is-active{% endif %}"
-            href="{% url 'account:login' %}">Log in</a>
-        <a class="{% if request.resolver_match.view_name == 'account:register' %}is-active{% endif %}"
-            href="{% url 'account:register' %}">Sign up</a>
+        <a class="{% if request.resolver_match.view_name == 'account:login' %}is-active{% endif %}" href="{% url 'account:login' %}">Log in</a>
+        <a class="{% if request.resolver_match.view_name == 'account:register' %}is-active{% endif %}" href="{% url 'account:register' %}">Sign up</a>
         {% endif %}
-        </div>
-        </div>
     </nav>
-    {% endblock nav %}
-    {% block content %}
-    {% endblock content %}
+    {% endblock nav %} {% block content %} {% endblock content %}
 </body>
 
 </html>
