@@ -13,6 +13,9 @@ class User(LifecycleModelMixin, AbstractUser):
     # This is used to provide a case insensitive username.
     objects = MyUserManager()
 
+    def __str__(self):
+        return f"{self.display_name}"
+
     @hook(BEFORE_SAVE, when="username", has_changed=True)
     def lower_username(self):
         """
@@ -22,6 +25,3 @@ class User(LifecycleModelMixin, AbstractUser):
         """
         self.display_name = self.username
         self.username = str.lower(self.username)
-
-    def __str__(self):
-        return f"{self.display_name}"
