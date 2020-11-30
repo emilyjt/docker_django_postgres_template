@@ -49,9 +49,9 @@ if __name__ == "__main__":
     alphabet = string.ascii_letters + string.digits
 
     for _root, _dirs, _files in os.walk(os.path.join(BASE_DIR, ".envs"), topdown=False):
-        password = "".join(secrets.choice(alphabet) for i in range(32))
-
         for _file in _files:
+            password = "".join(secrets.choice(alphabet) for i in range(64))
+
             with open(os.path.join(_root, _file)) as open_file:
                 file_data = open_file.read()
 
@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
             if new_data != file_data:
                 with open(os.path.join(_root, _file), "w") as open_file:
-                    open_file.write(file_data)
+                    open_file.write(new_data)
 
                     files_total += 1
 
@@ -109,4 +109,6 @@ if __name__ == "__main__":
 
                 dirs_total += 1
 
-        print(f"{ files_total } files have been updated, and { dirs_total } directories have been renamed.")
+    print(
+        f"{ files_total } files have been updated, and { dirs_total } directories have been renamed."
+    )
