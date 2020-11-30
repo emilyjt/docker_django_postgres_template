@@ -48,6 +48,8 @@ if __name__ == "__main__":
     ##########
     alphabet = string.ascii_letters + string.digits
 
+    secrets_total = 0
+
     for _root, _dirs, _files in os.walk(os.path.join(BASE_DIR, ".envs"), topdown=False):
         for _file in _files:
             password = "".join(secrets.choice(alphabet) for i in range(64))
@@ -55,10 +57,15 @@ if __name__ == "__main__":
             with open(os.path.join(_root, _file)) as open_file:
                 file_data = open_file.read()
 
-            file_data = file_data.replace("template_default_secret", password)
+            new_data = file_data.replace("template_default_secret", password)
 
-            with open(os.path.join(_root, _file), "w") as open_file:
-                open_file.write(file_data)
+            if new_data != file_data:
+                with open(os.path.join(_root, _file), "w") as open_file:
+                    open_file.write(new_data)
+
+                    secrets_total += 1
+
+    print(f"{ secrets_total } secrets have been generated in the /.envs folder.")
 
     ##########
     # Rename files and folders
