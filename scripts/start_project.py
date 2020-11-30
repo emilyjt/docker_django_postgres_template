@@ -66,6 +66,9 @@ if __name__ == "__main__":
             continue
 
         for _file in _files:
+            if "README.md" in _file:
+                continue
+
             with open(os.path.join(_root, _file)) as open_file:
                 file_data = open_file.read()
 
