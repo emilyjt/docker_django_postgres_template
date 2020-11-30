@@ -1,4 +1,6 @@
 import os
+import string
+import secrets
 
 
 def _slugify(text):
@@ -41,64 +43,79 @@ if __name__ == "__main__":
     project_name = input("What would you like your project to be called?\n")
     slug = _slugify(project_name)
 
-    files_to_change = [
-        # /useful_information.txt
-        os.path.join(BASE_DIR, "useful_information.txt"),
-        # /pyproject.toml
-        os.path.join(BASE_DIR, "pyproject.toml"),
-        # /docker-compose.yml
-        os.path.join(BASE_DIR, "docker-compose.yml"),
-        # /docker-compose.development.yml
-        os.path.join(BASE_DIR, "docker-compose.development.yml"),
-        # docker-compose.nginx-proxy.yml
-        os.path.join(BASE_DIR, "docker", "docker-compose.nginx-proxy.yml"),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "core", "__init__.py"
-        ),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "core", "apps.py"
-        ),
-        os.path.join(
-            BASE_DIR,
-            "src",
-            "django_template",
-            "django_template",
-            "account",
-            "__init__.py",
-        ),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "account", "apps.py"
-        ),
-        os.path.join(BASE_DIR, "src", "django_template", "config", "urls.py"),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "config", "settings", "base.py"
-        ),
-        os.path.join(BASE_DIR, "docker", "Dockerfile"),
-        os.path.join(BASE_DIR, ".envs", "development", ".postgres"),
-        os.path.join(BASE_DIR, ".envs", "production", ".postgres"),
-        os.path.join(BASE_DIR, "docker", "nginx.conf"),
-    ]
+    ##########
+    # Generate the .env secrets
+    ##########
+    alphabet = string.ascii_letters + string.digits
 
-    for file in files_to_change:
-        try:
-            with open(file) as open_file:
+    secrets_total = 0
+
+    for _root, _dirs, _files in os.walk(os.path.join(BASE_DIR, ".envs"), topdown=False):
+        for _file in _files:
+            password = "".join(secrets.choice(alphabet) for i in range(64))
+
+            with open(os.path.join(_root, _file)) as open_file:
                 file_data = open_file.read()
 
-            file_data = file_data.replace("django_template", slug)
+            new_data = file_data.replace("template_default_secret", password)
 
-            with open(file, "w") as open_file:
-                open_file.write(file_data)
-        except FileNotFoundError:
-            print(f"The file: {file} appears to be missing...")
+            if new_data != file_data:
+                with open(os.path.join(_root, _file), "w") as open_file:
+                    open_file.write(new_data)
 
-    try:
-        os.rename(
-            os.path.join(BASE_DIR, "src", "django_template", "django_template"),
-            os.path.join(BASE_DIR, "src", "django_template", slug),
-        )
-        os.rename(
-            os.path.join(BASE_DIR, "src", "django_template"),
-            os.path.join(BASE_DIR, "src", slug),
-        )
-    except FileNotFoundError:
-        pass
+                    secrets_total += 1
+
+    print(f"{ secrets_total } secrets have been generated in the /.envs folder.")
+
+    ##########
+    # Rename files and folders
+    ##########
+    files_total = 0
+    dirs_total = 0
+
+    for _root, _dirs, _files in os.walk(BASE_DIR, topdown=False):
+        if ".git" in _root:
+            continue
+
+        if ".venv" in _root:
+            continue
+
+        if ".vscode" in _root:
+            continue
+
+        if "__pycache__" in _root:
+            continue
+
+        if "scripts" in _root:
+            continue
+
+        if ".egg-info" in _root:
+            continue
+
+        for _file in _files:
+            if "README.md" in _file:
+                continue
+
+            with open(os.path.join(_root, _file)) as open_file:
+                file_data = open_file.read()
+
+            new_data = file_data.replace("django_template", slug)
+
+            if new_data != file_data:
+                with open(os.path.join(_root, _file), "w") as open_file:
+                    open_file.write(new_data)
+
+                    files_total += 1
+
+        for _dir in _dirs:
+            if "django_template" in _dir:
+                os.rename(
+                    os.path.join(_root, _dir),
+                    os.path.join(_root, _dir.replace("django_template", slug)),
+                )
+
+                dirs_total += 1
+
+    print(
+        f"{ files_total } files have been updated, and { dirs_total } directories have been renamed."
+    )

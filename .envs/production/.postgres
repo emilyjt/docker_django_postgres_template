@@ -5,4 +5,4 @@ POSTGRES_DB=django_template_postgresdb
 POSTGRES_USER=django_template_production
 
 # Don't forget to change me
-POSTGRES_PASSWORD=femurzmargaritazbruntzbroadsidezatriumzgoofball
+POSTGRES_PASSWORD=template_default_secret
