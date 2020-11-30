@@ -41,64 +41,56 @@ if __name__ == "__main__":
     project_name = input("What would you like your project to be called?\n")
     slug = _slugify(project_name)
 
-    files_to_change = [
-        # /useful_information.txt
-        os.path.join(BASE_DIR, "useful_information.txt"),
-        # /pyproject.toml
-        os.path.join(BASE_DIR, "pyproject.toml"),
-        # /docker-compose.yml
-        os.path.join(BASE_DIR, "docker-compose.yml"),
-        # /docker-compose.development.yml
-        os.path.join(BASE_DIR, "docker-compose.development.yml"),
-        # docker-compose.nginx-proxy.yml
-        os.path.join(BASE_DIR, "docker", "docker-compose.nginx-proxy.yml"),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "core", "__init__.py"
-        ),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "core", "apps.py"
-        ),
-        os.path.join(
-            BASE_DIR,
-            "src",
-            "django_template",
-            "django_template",
-            "account",
-            "__init__.py",
-        ),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "django_template", "account", "apps.py"
-        ),
-        os.path.join(BASE_DIR, "src", "django_template", "config", "urls.py"),
-        os.path.join(
-            BASE_DIR, "src", "django_template", "config", "settings", "base.py"
-        ),
-        os.path.join(BASE_DIR, "docker", "Dockerfile"),
-        os.path.join(BASE_DIR, ".envs", "development", ".postgres"),
-        os.path.join(BASE_DIR, ".envs", "production", ".postgres"),
-        os.path.join(BASE_DIR, "docker", "nginx.conf"),
-    ]
+    # Delete everything reachable from the directory named in "top",
+    # assuming there are no symbolic links.
+    # CAUTION:  This is dangerous!  For example, if top == '/', it
+    # could delete all your disk files.
 
-    for file in files_to_change:
-        try:
-            with open(file) as open_file:
+    for _root, _dirs, _files in os.walk(BASE_DIR, topdown=False):
+        if ".git" in _root:
+            continue
+
+        if ".venv" in _root:
+            continue
+
+        if ".vscode" in _root:
+            continue
+
+        if "__pycache__" in _root:
+            continue
+
+        if "scripts" in _root:
+            continue
+
+        if ".egg-info" in _root:
+            continue
+
+        for _file in _files:
+            with open(os.path.join(_root, _file)) as open_file:
                 file_data = open_file.read()
 
             file_data = file_data.replace("django_template", slug)
 
-            with open(file, "w") as open_file:
+            with open(os.path.join(_root, _file), "w") as open_file:
                 open_file.write(file_data)
-        except FileNotFoundError:
-            print(f"The file: {file} appears to be missing...")
 
-    try:
-        os.rename(
-            os.path.join(BASE_DIR, "src", "django_template", "django_template"),
-            os.path.join(BASE_DIR, "src", "django_template", slug),
-        )
-        os.rename(
-            os.path.join(BASE_DIR, "src", "django_template"),
-            os.path.join(BASE_DIR, "src", slug),
-        )
-    except FileNotFoundError:
-        pass
+        for _dir in _dirs:
+            print(
+                f"Renaming: {os.path.join(_root, _dir)} to: {os.path.join(_root, _dir.replace('django_template', slug))}"
+            )
+            os.rename(
+                os.path.join(_root, _dir),
+                os.path.join(_root, _dir.replace("django_template", slug)),
+            )
+
+    # try:
+    #     os.rename(
+    #         os.path.join(BASE_DIR, "src", "django_template", "django_template"),
+    #         os.path.join(BASE_DIR, "src", "django_template", slug),
+    #     )
+    #     os.rename(
+    #         os.path.join(BASE_DIR, "src", "django_template"),
+    #         os.path.join(BASE_DIR, "src", slug),
+    #     )
+    # except FileNotFoundError:
+    #     pass
