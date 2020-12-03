@@ -1,8 +1,7 @@
 version: "3"
 
 services:
-  django_dev:
-    container_name: django_template_django_dev
+  django:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -17,10 +16,9 @@ services:
       - ./.envs/development/.django
       - ./.envs/development/.postgres
     depends_on:
-      - postgresdb_dev
+      - postgresdb
     # restart: unless-stopped
-  postgresdb_dev:
-    container_name: django_template_postgresdb_dev
+  postgresdb:
     image: postgres:alpine # I would suggest pinning this to a version
     volumes:
       - postgres_data_dev:/var/lib/postgresql/data/

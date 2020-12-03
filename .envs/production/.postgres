@@ -1,5 +1,5 @@
 POSTGRES_ENGINE=django.db.backends.postgresql
-POSTGRES_HOST=django_template_postgresdb
+POSTGRES_HOST=postgresdb
 POSTGRES_PORT=5432
 POSTGRES_DB=django_template_postgresdb
 POSTGRES_USER=django_template_production

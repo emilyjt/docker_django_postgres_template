@@ -1,9 +1,19 @@
 version: "3"
 
+networks:
+  default:
+
+  nginx-proxy:
+    external: true
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
 services:
   # -------------------------------------------------------
   django:
-    container_name: django_template_django
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -21,7 +31,6 @@ services:
     restart: unless-stopped
   # -------------------------------------------------------
   postgresdb:
-    container_name: django_template_postgresdb
     image: postgres:alpine # I would suggest pinning this to a version
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -40,13 +49,6 @@ services:
     depends_on:
       - django
     restart: unless-stopped
-
-volumes:
-  postgres_data:
-  static_volume:
-  media_volume:
-
-networks:
-  default:
-    external:
-      name: nginx-proxy
+    networks:
+      - default
+      - nginx-proxy

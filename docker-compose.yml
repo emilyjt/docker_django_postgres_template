@@ -3,7 +3,6 @@ version: "3"
 services:
   # -------------------------------------------------------
   django:
-    container_name: django_template_django
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -13,8 +12,8 @@ services:
     volumes:
       - static_volume:/home/app/django/staticfiles
       - media_volume:/home/app/django/mediafiles
-    expose:
-      - 8000
+    # expose:
+    #   - 8000
     env_file:
       - ./.envs/production/.django
       - ./.envs/production/.postgres
@@ -23,7 +22,6 @@ services:
     restart: unless-stopped
   # -------------------------------------------------------
   postgresdb:
-    container_name: django_template_postgresdb
     image: postgres:alpine # I would suggest pinning this to a version
     volumes:
       - postgres_data:/var/lib/postgresql/data/
