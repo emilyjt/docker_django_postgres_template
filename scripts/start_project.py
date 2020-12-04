@@ -92,12 +92,18 @@ if __name__ == "__main__":
         if ".egg-info" in _root:
             continue
 
+        if "node_modules" in _root:
+            continue
+
         for _file in _files:
             if "README.md" in _file:
                 continue
 
-            with open(os.path.join(_root, _file)) as open_file:
-                file_data = open_file.read()
+            try:
+                with open(os.path.join(_root, _file)) as open_file:
+                    file_data = open_file.read()
+            except Exception:
+                continue
 
             new_data = file_data.replace("django_template", slug)
 
