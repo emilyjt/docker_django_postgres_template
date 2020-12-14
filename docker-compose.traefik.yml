@@ -32,11 +32,13 @@ services:
     ## Traefik stuff
     labels:
       - traefik.enable=true
-      ## Routers Rules
+      ## Routers rules
       - traefik.http.routers.django_template-rtr.rule=Host(`www.$DOMAINNAME`)
       - traefik.http.routers.django_template-rtr.tls=true
       - traefik.http.routers.django_template-rtr.tls.certresolver=letsencrypt
-      ## Middlewares Rules
+      ## Services rules
+      - traefik.http.services.django_template-rtr.loadbalancer.server.port=8000
+      ## Middlewares rules
     depends_on:
       - postgresdb
     restart: unless-stopped
