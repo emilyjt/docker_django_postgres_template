@@ -64,7 +64,7 @@ services:
     labels:
       - traefik.enable=true
       ## Routers Rules
-      - "traefik.http.routers.django_template-static-rtr.rule=Host(`www.$DOMAINNAME`) && PathPrefix(`/static`) || Host(`www.$DOMAINNAME`) && PathPrefix(`/media`)"
+      - traefik.http.routers.django_template-static-rtr.rule=Host(`www.$DOMAINNAME`) && PathPrefix(`/static`) || Host(`www.$DOMAINNAME`) && PathPrefix(`/media`)
       - traefik.http.routers.django_template-static-rtr.tls=true
       - traefik.http.routers.django_template-static-rtr.tls.certresolver=letsencrypt
       ## Middlewares Rules
