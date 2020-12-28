@@ -10,7 +10,7 @@ APPS_DIR = os.path.join(BASE_DIR, "django_template")
 
 # Default is False, but this variable should be passed in from Docker
 # The value it receives is in .envs/<environment>/.django
-DEBUG = os.getenv("DJANGO_DEBUG", False)
+DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 # This variable should be passed in from Docker
 # The value it receives is in .envs/<environment>/.django
