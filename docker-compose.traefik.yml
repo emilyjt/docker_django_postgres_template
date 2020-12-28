@@ -1,0 +1,78 @@
+version: "3"
+
+networks:
+  ## This network will be used to enable all our services to talk together, this is normally
+  ## done by default, but as you are likely to use a reverse proxy to this service, we will need to manually
+  ## declare the network, so that the reverse proxy declarations will work also.
+  django:
+
+  traefik-proxy:
+    external: true
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+services:
+  # -------------------------------------------------------
+  django:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        requirements: requirements.txt # this is the name of the requirements file you wish to be installed
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2
+    volumes:
+      - static_volume:/home/app/django/staticfiles
+      - media_volume:/home/app/django/mediafiles
+    env_file:
+      - ./.envs/production/.django
+      - ./.envs/production/.postgres
+    ## Traefik stuff
+    labels:
+      - traefik.enable=true
+      ## Routers rules
+      - traefik.http.routers.django_template-rtr.rule=Host(`www.$DOMAINNAME`)
+      - traefik.http.routers.django_template-rtr.tls=true
+      - traefik.http.routers.django_template-rtr.tls.certresolver=letsencrypt
+      ## Services rules
+      - traefik.http.services.django_template-rtr.loadbalancer.server.port=8000
+      ## Middlewares rules
+    depends_on:
+      - postgresdb
+    restart: unless-stopped
+    networks:
+      - django
+      - traefik-proxy
+  # -------------------------------------------------------
+  postgresdb:
+    image: postgres:alpine # I would suggest pinning this to a version
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.envs/production/.postgres
+    restart: unless-stopped
+    networks:
+      - django
+  # -------------------------------------------------------
+  nginx:
+    image: nginx:alpine # I would suggest pinning this to a version
+    volumes:
+      - ./docker/nginx-static-only.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/home/app/django/staticfiles
+      - media_volume:/home/app/django/mediafiles
+    ## Traefik stuff
+    labels:
+      - traefik.enable=true
+      ## Routers Rules
+      - traefik.http.routers.django_template-static-rtr.rule=Host(`www.$DOMAINNAME`) && PathPrefix(`/static`) || Host(`www.$DOMAINNAME`) && PathPrefix(`/media`)
+      - traefik.http.routers.django_template-static-rtr.tls=true
+      - traefik.http.routers.django_template-static-rtr.tls.certresolver=letsencrypt
+      ## Middlewares Rules
+    depends_on:
+      - django
+    restart: unless-stopped
+    networks:
+      - django
+      - traefik-proxy
