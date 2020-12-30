@@ -28,6 +28,7 @@ def _slugify(text):
         "}",
         "~",
         "'",
+        "."
     ]
 
     translate_table = {ord(char): "" for char in non_url_safe}
