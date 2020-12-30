@@ -19,7 +19,7 @@ services:
     env_file:
       - ./.envs/development/.django
       - ./.envs/development/.postgres
-    image: docker_django_postgres_template_development_django
+    image: django_template_development_django
     ports:
       - 8000:8000
     volumes:
@@ -35,7 +35,7 @@ services:
         POSTGRES_VERSION: ${POSTGRES_VERSION} # this is found in the .env file
     env_file:
       - ./.envs/development/.postgres
-    image: docker_django_postgres_template_production_postgres
+    image: django_template_production_postgres
     restart: unless-stopped
     volumes:
       - development_postgres_data:/var/lib/postgresql/data/:Z # :Z marks the volume as private

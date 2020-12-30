@@ -28,7 +28,7 @@ services:
     env_file:
       - ./.envs/production/.django
       - ./.envs/production/.postgres
-    image: docker_django_postgres_template_production_django
+    image: django_template_production_django
     networks:
       - production_django
     restart: unless-stopped
@@ -46,7 +46,7 @@ services:
         POSTGRES_VERSION: ${POSTGRES_VERSION} # this is found in the .env file
     env_file:
       - ./.envs/production/.postgres
-    image: docker_django_postgres_template_production_postgres
+    image: django_template_production_postgres
     networks:
       - production_django
     restart: unless-stopped
@@ -64,7 +64,7 @@ services:
         CONF_FILE: nginx-standalone.conf
     depends_on:
       - django
-    image: docker_django_postgres_template_production_nginx
+    image: django_template_production_nginx
     networks:
       - production_django
     ports:
