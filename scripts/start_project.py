@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     for _root, _dirs, _files in os.walk(os.path.join(BASE_DIR, ".envs"), topdown=False):
         for _file in _files:
-            password = "".join(secrets.choice(alphabet) for i in range(64))
+            password = "".join(secrets.choice(alphabet) for i in range(48))
 
             with open(os.path.join(_root, _file)) as open_file:
                 file_data = open_file.read()
