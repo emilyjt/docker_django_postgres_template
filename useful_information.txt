@@ -14,7 +14,7 @@ docker-compose -f .\docker-compose.production.yml <command>
 # nginx: django_template_nginx_1
 
 docker exec -it <container name/ID> /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
-docker exec -it django_template_postgresdb_1 /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
+docker exec -it django_template_postgres_1 /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 docker exec -it django_template_django_1 /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 docker exec -it django_template_nginx_1 /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 

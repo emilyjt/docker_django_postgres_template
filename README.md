@@ -37,15 +37,20 @@ py .\\scripts\\start_project.py
 
 ---
 
+We now need to rename the following file:
+
+`.env_example` to `.env`
+
+---
+
 At this point now, you can immediately load the development server to check if everything is working:
 
 ```bash
-docker-compose up --build -d
+docker-compose -f "docker-compose.development.yml" up --build -d
 docker exec -it <container name/ID> /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"
 ```
 
-You should now have access to a terminal window inside the django docker container. Use this
-to migrate and create a super user.
+You should now have access to a terminal window inside the django docker container. Use this to create a super user.
 
 ---
 
@@ -68,7 +73,24 @@ python -m venv .venv
 and install the project requirements:
 
 ```bash
-(venv) pip install -r requirements.txt
+(venv) pip install -r requirements.development.txt
+```
+
+## Notes
+
+The project will perform the following commands automatically in both the production and development environments:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+If this behaviour is not wanted, please remove it from the `docker\django\entrypoint.sh` file
+
+The project will perform the following command automatically *only* when the production environment is running:
+
+```bash
+python manage.py collectstatic --noinput
 ```
 
 ## Authors

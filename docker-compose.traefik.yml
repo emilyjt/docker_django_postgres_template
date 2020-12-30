@@ -4,31 +4,33 @@ networks:
   ## This network will be used to enable all our services to talk together, this is normally
   ## done by default, but as you are likely to use a reverse proxy to this service, we will need to manually
   ## declare the network, so that the reverse proxy declarations will work also.
-  django:
+  production_django:
 
   traefik-proxy:
     external: true
 
 volumes:
-  postgres_data:
-  static_volume:
-  media_volume:
+  production_postgres_data: {}
+  production_staticfiles: {}
+  production_mediafiles: {}
 
 services:
+  # -------------------------------------------------------
+  # Django
   # -------------------------------------------------------
   django:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/django/Dockerfile
       args:
-        requirements: requirements.txt # this is the name of the requirements file you wish to be installed
+        REQUIREMENTS: requirements.txt # this is the name of the requirements file you wish to be installed    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2
-    volumes:
-      - static_volume:/home/app/django/staticfiles
-      - media_volume:/home/app/django/mediafiles
+    depends_on:
+      - postgres
     env_file:
       - ./.envs/production/.django
       - ./.envs/production/.postgres
+    image: docker_django_postgres_template_production_django
     ## Traefik stuff
     labels:
       - traefik.enable=true
@@ -39,30 +41,44 @@ services:
       ## Services rules
       - traefik.http.services.django_template-rtr.loadbalancer.server.port=8000
       ## Middlewares rules
-    depends_on:
-      - postgresdb
-    restart: unless-stopped
+      - traefik.http.routers.django_template-rtr.middlewares=middlewares-csrf@file
     networks:
-      - django
+      - production_django
       - traefik-proxy
-  # -------------------------------------------------------
-  postgresdb:
-    image: postgres:alpine # I would suggest pinning this to a version
+    restart: unless-stopped
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - production_staticfiles:/home/app/django/staticfiles:z # :z marks the volume as shared
+      - production_mediafiles:/home/app/django/mediafiles:z # :z marks the volume as shared
+  # -------------------------------------------------------
+  # Postgres
+  # -------------------------------------------------------
+  postgres:
+    build:
+      context: .
+      dockerfile: ./docker/postgres/Dockerfile
+      args:
+        POSTGRES_VERSION: ${POSTGRES_VERSION} # this is found in the .env file
     env_file:
       - ./.envs/production/.postgres
-    restart: unless-stopped
+    image: docker_django_postgres_template_production_postgres
     networks:
-      - django
+      - production_django
+    restart: unless-stopped
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data/:Z # :Z marks the volume as private
+  # -------------------------------------------------------
+  # Nginx
   # -------------------------------------------------------
   nginx:
-    image: nginx:alpine # I would suggest pinning this to a version
-    volumes:
-      - ./docker/nginx-static-only.conf:/etc/nginx/conf.d/default.conf
-      - static_volume:/home/app/django/staticfiles
-      - media_volume:/home/app/django/mediafiles
-    ## Traefik stuff
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+      args:
+        NGINX_VERSION: ${NGINX_VERSION} # this is found in the .env file
+        CONF_FILE: nginx-behind-traefik.conf
+    depends_on:
+      - django
+    image: docker_django_postgres_template_production_nginx
     labels:
       - traefik.enable=true
       ## Routers Rules
@@ -70,9 +86,10 @@ services:
       - traefik.http.routers.django_template-static-rtr.tls=true
       - traefik.http.routers.django_template-static-rtr.tls.certresolver=letsencrypt
       ## Middlewares Rules
-    depends_on:
-      - django
-    restart: unless-stopped
     networks:
-      - django
+      - production_django
       - traefik-proxy
+    restart: unless-stopped
+    volumes:
+      - production_staticfiles:/home/app/django/staticfiles
+      - production_mediafiles:/home/app/django/mediafiles

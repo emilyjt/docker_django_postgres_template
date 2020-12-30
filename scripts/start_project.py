@@ -99,6 +99,10 @@ if __name__ == "__main__":
             if "README.md" in _file:
                 continue
 
+            if ".env_example" in _file:
+                os.rename(os.path.join(_root, _file), os.path.join(_root, '.env'))
+                continue
+
             try:
                 with open(os.path.join(_root, _file)) as open_file:
                     file_data = open_file.read()

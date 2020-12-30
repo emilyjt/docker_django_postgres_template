@@ -18,10 +18,10 @@ RUN apt-get update \
     musl-dev
 
 # Copy the requirements over, and create the wheels
-ARG requirements
-COPY ./$requirements ./
+ARG REQUIREMENTS
+COPY ./$REQUIREMENTS ./
 RUN python -m pip install --upgrade pip
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /home/app/wheels -r $requirements
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /home/app/wheels -r $REQUIREMENTS
 
 ###############################################################################
 
@@ -34,7 +34,6 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
-    dos2unix \ 
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -52,18 +51,17 @@ WORKDIR $APP_HOME
 # copy only the dependencies installation from the 1st stage image
 RUN python -m pip install --upgrade pip
 COPY --from=builder /home/app/wheels /wheels
-COPY --from=builder /home/app/$requirements $HOME
+COPY --from=builder /home/app/$REQUIREMENTS $HOME
 RUN pip install --no-cache /wheels/*
 
 # copy entrypoint.sh and give it execute permissions
-COPY ./docker/entrypoint.sh $HOME
-RUN dos2unix /home/app/entrypoint.sh \
+COPY ./docker/django/entrypoint.sh $HOME
+RUN sed -i 's/\r$//g' /home/app/entrypoint.sh \
     && chmod +x /home/app/entrypoint.sh
 
-COPY ./docker/wait-for-it.sh /usr/local/bin/
-RUN dos2unix /usr/local/bin/wait-for-it.sh \
+COPY ./docker/django/wait-for-it.sh /usr/local/bin/
+RUN sed -i 's/\r$//g' /usr/local/bin/wait-for-it.sh \
     && chmod +x /usr/local/bin/wait-for-it.sh
-RUN chmod +x /usr/local/bin/wait-for-it.sh
 
 # copy the project to $APP_HOME
 COPY ./src/django_template $APP_HOME

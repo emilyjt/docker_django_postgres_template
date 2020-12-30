@@ -1,30 +1,41 @@
 version: "3"
 
+volumes:
+  development_postgres_data: {}
+
 services:
+  # -------------------------------------------------------
+  # Django
+  # -------------------------------------------------------
   django:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/django/Dockerfile
       args:
-        requirements: requirements.development.txt # this is the name of the requirements file you wish to be installed
+        REQUIREMENTS: requirements.development.txt # this is the name of the requirements file you wish to be installed
     command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./src/django_template:/home/app/django/
-    ports:
-      - 8000:8000
+    depends_on:
+      - postgres
     env_file:
       - ./.envs/development/.django
       - ./.envs/development/.postgres
-    depends_on:
-      - postgresdb
-    # restart: unless-stopped
-  postgresdb:
-    image: postgres:alpine # I would suggest pinning this to a version
+    image: docker_django_postgres_template_development_django
+    ports:
+      - 8000:8000
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data/
+      - ./src/django_template:/home/app/django/
+  # -------------------------------------------------------
+  # Postgres
+  # -------------------------------------------------------
+  postgres:
+    build:
+      context: .
+      dockerfile: ./docker/postgres/Dockerfile
+      args:
+        POSTGRES_VERSION: ${POSTGRES_VERSION} # this is found in the .env file
     env_file:
       - ./.envs/development/.postgres
-    # restart: unless-stopped
-
-volumes:
-  postgres_data_dev:
+    image: docker_django_postgres_template_production_postgres
+    restart: unless-stopped
+    volumes:
+      - development_postgres_data:/var/lib/postgresql/data/:Z # :Z marks the volume as private
