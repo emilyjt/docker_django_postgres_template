@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
             new_data = file_data
 
-            while "template_default_secret" in file_data:
+            while "template_default_secret" in new_data:
                 password = "".join(secrets.choice(alphabet) for i in range(48))
                 new_data = new_data.replace("template_default_secret", password, 1)
 
@@ -103,7 +103,10 @@ if __name__ == "__main__":
                 continue
 
             if ".env_example" in _file:
-                os.rename(os.path.join(_root, _file), os.path.join(_root, ".env"))
+                try:
+                    os.rename(os.path.join(_root, _file), os.path.join(_root, ".env"))
+                except Exception:
+                    pass
                 continue
 
             try:
