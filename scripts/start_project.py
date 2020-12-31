@@ -28,7 +28,7 @@ def _slugify(text):
         "}",
         "~",
         "'",
-        "."
+        ".",
     ]
 
     translate_table = {ord(char): "" for char in non_url_safe}
@@ -53,12 +53,14 @@ if __name__ == "__main__":
 
     for _root, _dirs, _files in os.walk(os.path.join(BASE_DIR, ".envs"), topdown=False):
         for _file in _files:
-            password = "".join(secrets.choice(alphabet) for i in range(48))
-
             with open(os.path.join(_root, _file)) as open_file:
                 file_data = open_file.read()
 
-            new_data = file_data.replace("template_default_secret", password)
+            new_data = file_data
+
+            while "template_default_secret" in file_data:
+                password = "".join(secrets.choice(alphabet) for i in range(48))
+                new_data = new_data.replace("template_default_secret", password, 1)
 
             if new_data != file_data:
                 with open(os.path.join(_root, _file), "w") as open_file:
@@ -101,7 +103,7 @@ if __name__ == "__main__":
                 continue
 
             if ".env_example" in _file:
-                os.rename(os.path.join(_root, _file), os.path.join(_root, '.env'))
+                os.rename(os.path.join(_root, _file), os.path.join(_root, ".env"))
                 continue
 
             try:
