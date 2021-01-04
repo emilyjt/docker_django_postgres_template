@@ -13,7 +13,12 @@ services:
       dockerfile: ./docker/django/Dockerfile
       args:
         REQUIREMENTS: requirements.development.txt # this is the name of the requirements file you wish to be installed
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000
+      "
     depends_on:
       - postgres
     env_file:
