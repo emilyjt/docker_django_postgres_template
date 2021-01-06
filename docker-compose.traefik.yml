@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: ./docker/django/Dockerfile
       args:
-        REQUIREMENTS: requirements.txt # this is the name of the requirements file you wish to be installed    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2
+        REQUIREMENTS: requirements.txt # this is the name of the requirements file you wish to be installed
     command: >
       sh -c "
       python manage.py makemigrations &&
@@ -97,5 +97,5 @@ services:
       - traefik-proxy
     restart: unless-stopped
     volumes:
-      - production_staticfiles:/home/app/django/staticfiles
-      - production_mediafiles:/home/app/django/mediafiles
+      - production_staticfiles:/home/app/django/staticfiles:z # :z marks the volume as shared
+      - production_mediafiles:/home/app/django/mediafiles:z # :z marks the volume as shared

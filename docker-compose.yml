@@ -77,5 +77,5 @@ services:
       - "80:80"
     restart: unless-stopped
     volumes:
-      - production_staticfiles:/home/app/django/staticfiles
-      - production_mediafiles:/home/app/django/mediafiles
+      - production_staticfiles:/home/app/django/staticfiles:z # :z marks the volume as shared
+      - production_mediafiles:/home/app/django/mediafiles:z # :z marks the volume as shared
