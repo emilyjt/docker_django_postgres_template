@@ -30,7 +30,7 @@ if __name__ == "__main__":
     # Use like: BASE_DIR / ".env"
     BASE_DIR = Path(__file__).resolve().parent
 
-    domain_name = input("Please enter the domain name this will be deployed to:\n")
+    domain_name = input("Please enter either: a project name, or the domain name this project will be deployed to:\n")
     service_name = domain_name.split(".")[0]
 
     ###########################################################################
