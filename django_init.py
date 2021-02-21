@@ -102,7 +102,7 @@ if __name__ == "__main__":
             if ".env" in _file:
                 continue
 
-            if "www.init.py" in _file:
+            if "django_init.py" in _file:
                 continue
 
             try:

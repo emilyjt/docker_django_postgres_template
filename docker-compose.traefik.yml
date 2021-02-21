@@ -3,6 +3,9 @@ version: "3.9"
 networks:
   django:
 
+  traefik-public:
+    external: true
+
 services:
   # -------------------------------------------------------
   # Django
@@ -61,10 +64,21 @@ services:
     depends_on:
       - django
     image: nginx:alpine
+    labels:
+      - traefik.enable=true
+      - traefik.constraint-label=traefik-public
+      ## Routers rules
+      - traefik.http.routers.${SERVICENAME}-rtr.rule=Host(`www.$DOMAINNAME`) || Host(`$DOMAINNAME`)
+      - traefik.http.routers.${SERVICENAME}-rtr.entrypoints=websecure
+      - traefik.http.routers.${SERVICENAME}-rtr.tls=true
+      - traefik.http.routers.${SERVICENAME}-rtr.tls.certresolver=letsencrypt
+      ## Middlewares rules
+      - traefik.http.routers.${SERVICENAME}-rtr.middlewares=www-redirect@file
+      ## Services rules
+      - traefik.http.services.${SERVICENAME}-rtr.loadbalancer.server.port=80
     networks:
       - django
-    ports:
-      - "80:80"
+      - traefik-public
     volumes:
       - ./www/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./www/nginx/conf.d:/etc/nginx/conf.d
