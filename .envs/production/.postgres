@@ -1,8 +1,0 @@
-POSTGRES_ENGINE=django.db.backends.postgresql
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=django_template
-
-# Don't forget to change me
-POSTGRES_USER=template_default_secret
-POSTGRES_PASSWORD=template_default_secret

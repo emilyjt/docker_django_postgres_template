@@ -1,0 +1,22 @@
+#!/bin/sh
+
+## Check if the database has started
+## We could also use ${POSTGRES_PORT:-5432} to provide a default value
+if [ -n "$POSTGRES_HOST" ]; then
+    /wait-for-it "$POSTGRES_HOST:5432" --strict --timeout=300
+fi
+
+sleep 1
+## The below code has been migrated into the docker-compose files.
+
+# python manage.py makemigrations
+# python manage.py migrate
+
+## We do not want to run collectstatic during development, as we are probably
+## using the django dev server
+# if [ "$DJANGO_SETTINGS_MODULE" != "config.settings.development" ]
+# then
+#     python manage.py collectstatic --noinput
+# fi
+
+exec "$@"

@@ -1,16 +1,11 @@
-version: "3"
+version: "3.9"
 
 networks:
-  ## This network will be used to enable all our services to talk together, this is normally
-  ## done by default, but as you are likely to use a reverse proxy to this service, we will need to manually
-  ## declare the network, so that the reverse proxy declarations will work also.
-  ## I suggest, if you are using Traefik, to check out the traefik compose provided.
-  production_django:
+  django:
+    driver: overlay
 
-volumes:
-  production_postgres_data: {}
-  production_staticfiles: {}
-  production_mediafiles: {}
+  traefik-public:
+    external: true
 
 services:
   # -------------------------------------------------------
@@ -18,9 +13,10 @@ services:
   # -------------------------------------------------------
   django:
     build:
-      context: .
-      dockerfile: ./docker/django/Dockerfile
+      context: ./www
+      dockerfile: ./docker/Dockerfile
       args:
+        SERVICENAME: ${SERVICENAME}
         REQUIREMENTS: requirements.txt # this is the name of the requirements file you wish to be installed
     command: >
       sh -c "
@@ -31,51 +27,70 @@ services:
       "
     depends_on:
       - postgres
-    env_file:
-      - ./.envs/production/.django
-      - ./.envs/production/.postgres
-    image: django_template_production_django
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      #
+      - POSTGRES_HOST=${POSTGRES_HOST?Variable not set}
+      - REDIS_URL=${REDIS_URL?Variable not set}
+      - DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL?Variable not set}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS?Variable not set}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY?Variable not set}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE?Variable not set}
+    # image: <your-private-registry>/${DOMAINNAME}-django:latest
+    image: ${DOMAINNAME}-django:latest
     networks:
-      - production_django
-    restart: unless-stopped
+      - django
     volumes:
-      - production_staticfiles:/home/app/django/staticfiles:z # :z marks the volume as shared
-      - production_mediafiles:/home/app/django/mediafiles:z # :z marks the volume as shared
+      - ./www/django/src/${SERVICENAME}/staticfiles:/app/django/staticfiles
+      - ./www/django/src/${SERVICENAME}/mediafiles:/app/django/mediafiles
   # -------------------------------------------------------
   # Postgres
   # -------------------------------------------------------
   postgres:
-    build:
-      context: .
-      dockerfile: ./docker/postgres/Dockerfile
-      args:
-        POSTGRES_VERSION: ${POSTGRES_VERSION} # this is found in the .env file
-    env_file:
-      - ./.envs/production/.postgres
-    image: django_template_production_postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+    image: postgres:13-alpine
     networks:
-      - production_django
-    restart: unless-stopped
+      - django
     volumes:
-      - production_postgres_data:/var/lib/postgresql/data/:Z # :Z marks the volume as private
+      - ./www/database:/var/lib/postgresql/data/
   # -------------------------------------------------------
-  # Nginx
+  # NGINX
   # -------------------------------------------------------
   nginx:
-    build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
-      args:
-        NGINX_VERSION: ${NGINX_VERSION} # this is found in the .env file
-        CONF_FILE: nginx-standalone.conf
     depends_on:
       - django
-    image: django_template_production_nginx
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.constraint-label=traefik-public
+        ## Routers rules
+        - traefik.http.routers.${SERVICENAME}-rtr.rule=Host(`www.$DOMAINNAME`) || Host(`$DOMAINNAME`)
+        - traefik.http.routers.${SERVICENAME}-rtr.entrypoints=websecure
+        - traefik.http.routers.${SERVICENAME}-rtr.tls=true
+        - traefik.http.routers.${SERVICENAME}-rtr.tls.certresolver=letsencrypt
+        ## Middlewares rules
+        - traefik.http.routers.${SERVICENAME}-rtr.middlewares=www-redirect@file
+        ## Services rules
+        - traefik.http.services.${SERVICENAME}-rtr.loadbalancer.server.port=80
+    image: nginx:alpine
     networks:
-      - production_django
-    ports:
-      - "80:80"
-    restart: unless-stopped
+      - django
+      - traefik-public
     volumes:
-      - production_staticfiles:/home/app/django/staticfiles:z # :z marks the volume as shared
-      - production_mediafiles:/home/app/django/mediafiles:z # :z marks the volume as shared
+      - ./www/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./www/nginx/conf.d:/etc/nginx/conf.d
+      - ./www/nginx/logs:/var/log/nginx
+      - ./www/django/src/${SERVICENAME}/staticfiles:/app/django/staticfiles
+      - ./www/django/src/${SERVICENAME}/mediafiles:/app/django/mediafiles
+  # -------------------------------------------------------
+  # redis
+  # -------------------------------------------------------
+  redis:
+    image: redis:6
+    networks:
+      - django

@@ -1,7 +1,0 @@
-DJANGO_SETTINGS_MODULE=config.settings.development
-
-DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-
-DJANGO_SECRET_KEY=template_default_secret
-
-DJANGO_DEBUG=True

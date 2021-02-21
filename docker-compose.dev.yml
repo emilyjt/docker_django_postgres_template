@@ -1,0 +1,53 @@
+version: "3.9"
+
+networks:
+  django:
+
+services:
+  # -------------------------------------------------------
+  # Django
+  # -------------------------------------------------------
+  django:
+    build:
+      context: ./www
+      dockerfile: ./docker/Dockerfile
+      args:
+        SERVICENAME: ${SERVICENAME}
+        REQUIREMENTS: requirements.development.txt # this is the name of the requirements file you wish to be installed
+    command: >
+      sh -c "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      #
+      - POSTGRES_HOST=${POSTGRES_HOST?Variable not set}
+      - DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
+    networks:
+      - django
+    ports:
+      - 8000:8000
+    volumes:
+      - ./www/django/src/${SERVICENAME}:/app/django
+  # -------------------------------------------------------
+  # Postgres
+  # -------------------------------------------------------
+  postgres:
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+    image: postgres:13-alpine
+    networks:
+      - django
+    volumes:
+      - dev_database:/var/lib/postgresql/data/
+
+volumes:
+  dev_database:
